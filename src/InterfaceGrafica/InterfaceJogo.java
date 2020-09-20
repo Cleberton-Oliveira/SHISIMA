@@ -1,6 +1,7 @@
 package InterfaceGrafica;
 
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -50,15 +51,18 @@ public class InterfaceJogo { // InterfaceShisima
 		atorJogador = new AtorJogador();
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Shisima");
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 434, 21);
-		frame.getContentPane().add(menuBar);
+		menuBar.setBounds(0, 0, 57, 21);
+		frame.setJMenuBar(menuBar);
+//		frame.getContentPane().add(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Jogo");
+		mnNewMenu.setBounds(new Rectangle(1, 0, 57, 21));
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmConectar = new JMenuItem("conectar");
