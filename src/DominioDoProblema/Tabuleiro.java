@@ -1,11 +1,14 @@
-package DominioDoProblema;
+	package DominioDoProblema;
 
-public class ElementoDominioProblema { // Nosso tabuleiro
+public class Tabuleiro { // Nosso tabuleiro
 	
+	protected Jogador jogador1;
+	protected Jogador jogador2;
+	protected VetorPosicoes vetorPosicoes;
 	protected boolean conectado = false;
 	protected boolean partidaAndamento = false;
 
-	public ElementoDominioProblema() {
+	public Tabuleiro() {
 		// TODO Auto-generated constructor stub
 	}
 
