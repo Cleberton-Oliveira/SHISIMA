@@ -1,16 +1,16 @@
 package InterfaceGrafica;
 
-import DominioDoProblema.ElementoDominioProblema;
+import DominioDoProblema.Tabuleiro;
 import Rede.AtorNetgames;
 
 public class AtorJogador {
 	
 	protected AtorNetgames ngServer;
-	protected ElementoDominioProblema domProblema; // Nosso tabuleiro
+	protected Tabuleiro domProblema; // Nosso tabuleiro
 
 	public AtorJogador() {
 		ngServer = new AtorNetgames();
-		domProblema = new ElementoDominioProblema();
+		domProblema = new Tabuleiro();
 	}
 
 	public String conectar(String string, String string2) {
