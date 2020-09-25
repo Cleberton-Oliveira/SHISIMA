@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JMenu;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit ;
 
 import javax.swing.Action;
 import javax.swing.Icon;
