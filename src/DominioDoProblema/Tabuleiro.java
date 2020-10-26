@@ -4,7 +4,7 @@ public class Tabuleiro { // Nosso tabuleiro
 	
 	protected Jogador jogador1;
 	protected Jogador jogador2;
-	protected VetorPosicoes vetorPosicoes;
+	protected Matriz vetorPosicoes;
 	protected boolean conectado = false;
 	protected boolean partidaAndamento = false;
 
@@ -24,9 +24,6 @@ public class Tabuleiro { // Nosso tabuleiro
 		partidaAndamento = valor;
 	}
 	
-	public boolean informarPartidaAndamento() {
-		return partidaAndamento;
-	}
 	
 	public boolean permitidoConectar() {
 		return !conectado;
@@ -41,6 +38,16 @@ public class Tabuleiro { // Nosso tabuleiro
 	public boolean permitidoIniciarPartida() {
 		return !partidaAndamento;
 		// defina a l�gica do seu jogo
+	}
+
+	public boolean obterPartidaEmAndamento() {
+		// TODO Auto-generated method stub
+		return this.partidaAndamento;
+	}
+
+	public boolean encerrarHavendoPartida() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 

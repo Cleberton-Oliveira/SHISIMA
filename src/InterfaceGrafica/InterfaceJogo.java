@@ -22,7 +22,7 @@ public class InterfaceJogo { // InterfaceShisima
 
 	private JFrame frame;
 	private final Action action = new SwingAction(); // action do conectar
-	private final Action action_1 = new SwingAction_1();
+	private final Action action_1 = new SwingAction_1(); // action do desconectar
 	private final Action action_2 = new SwingAction_2();
 	private InterfaceJogador atorJogador;
 
@@ -286,7 +286,7 @@ public class InterfaceJogo { // InterfaceShisima
 		}
 		public void actionPerformed(ActionEvent e) {
 			String mensagem = atorJogador.desconectar();
-			JOptionPane.showMessageDialog(null, mensagem);
+			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
 		}
 	}
 	private class SwingAction_2 extends AbstractAction {

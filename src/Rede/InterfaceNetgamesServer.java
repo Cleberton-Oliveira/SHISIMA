@@ -26,19 +26,15 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 			try {
 				proxy.conectar(servidor, nome);
 			} catch (JahConectadoException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "Voce ja esta conectado";
 			} catch (NaoPossivelConectarException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "Nao foi possivel conectar";
 			} catch (ArquivoMultiplayerException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "Voce esqueceu o arquivo de propriedades";
 			}
-			// definirConectado
 			this.definirConectado(true);
 			return "Sucesso: conectado a Netgames Server";
 		
@@ -52,10 +48,10 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 			try {
 				proxy.desconectar();
 			} catch (NaoConectadoException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "Voce nao esta conectado";
 			}
+			this.definirConectado(false);
 			return "Sucesso: desconectado de Netgames Server";
 	}
 
@@ -108,6 +104,11 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	public boolean informarConectado() {
 		// TODO Auto-generated method stub
 		return this.conectado;
+	}
+
+	public void encerrarPartida() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

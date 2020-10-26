@@ -1,9 +1,9 @@
 package DominioDoProblema;
 
-public class VetorPosicoes {
+public class Matriz {
 	
 	protected Posicao[] posicoes;
 	
-	public VetorPosicoes() {}
+	public Matriz() {}
 
 }

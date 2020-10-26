@@ -18,7 +18,6 @@ public class InterfaceJogador {
 	public String conectar() {
 		String mensagem = "";
 		
-		// verificar se esta conectado
 		boolean conectado = this.ngServer.informarConectado();
 			
 		if (!conectado) {
@@ -34,13 +33,30 @@ public class InterfaceJogador {
 	}
 	
 	public String desconectar() {
-		String mensagem = "Condicao para desconexao nao atendida (defina qual)";
-		boolean permitido = tabuleiro.permitidoDesconectar();
-		if (permitido) {
-			mensagem = ngServer.desconectar();
-			if (mensagem.equals("Sucesso: desconectado de Netgames Server")) {
-				tabuleiro.definirConectado(false);
+		
+		String mensagem = "";
+		
+		boolean conectado = this.ngServer.informarConectado();
+		
+		if (!conectado) {
+			mensagem = "Você não está conectado";	
+		} else {
+			
+			boolean partidaEmAndamento = this.tabuleiro.obterPartidaEmAndamento();
+			
+			if (partidaEmAndamento) {
+				// T0D0
+				// encerra partida localmente
 			}
+
+			boolean atualizarInterface = this.tabuleiro.encerrarHavendoPartida();
+			
+			if (atualizarInterface) {
+				this.ngServer.encerrarPartida();
+			}
+				
+			mensagem = this.ngServer.desconectar();
+			
 		}
 		return mensagem;
 	}
