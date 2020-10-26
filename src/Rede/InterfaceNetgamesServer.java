@@ -10,12 +10,13 @@ import br.ufsc.inf.leobr.cliente.exception.JahConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
 
-public class AtorNetgames implements OuvidorProxy {
+public class InterfaceNetgamesServer implements OuvidorProxy {
 	
 	private static final long serialVersionUID = 1L;
 	protected Proxy proxy;
+	protected boolean conectado = false;
 	
-	public AtorNetgames() {
+	public InterfaceNetgamesServer() {
 		super();
 		this.proxy = Proxy.getInstance();
 		proxy.addOuvinte(this);	
@@ -37,8 +38,14 @@ public class AtorNetgames implements OuvidorProxy {
 				e.printStackTrace();
 				return "Voce esqueceu o arquivo de propriedades";
 			}
+			// definirConectado
+			this.definirConectado(true);
 			return "Sucesso: conectado a Netgames Server";
 		
+	}
+
+	private void definirConectado(boolean valor) {
+		this.conectado = valor;
 	}
 
 	public String desconectar() {
@@ -96,6 +103,11 @@ public class AtorNetgames implements OuvidorProxy {
 	public void tratarPartidaNaoIniciada(String message) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public boolean informarConectado() {
+		// TODO Auto-generated method stub
+		return this.conectado;
 	}
 	
 

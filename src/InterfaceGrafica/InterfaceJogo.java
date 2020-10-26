@@ -21,10 +21,10 @@ import javax.swing.ImageIcon;
 public class InterfaceJogo { // InterfaceShisima
 
 	private JFrame frame;
-	private final Action action = new SwingAction();
+	private final Action action = new SwingAction(); // action do conectar
 	private final Action action_1 = new SwingAction_1();
 	private final Action action_2 = new SwingAction_2();
-	private AtorJogador atorJogador;
+	private InterfaceJogador atorJogador;
 
 	/**
 	 * Launch the application.
@@ -56,7 +56,7 @@ public class InterfaceJogo { // InterfaceShisima
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		atorJogador = new AtorJogador();
+		atorJogador = new InterfaceJogador(this);
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 610, 660);
@@ -85,7 +85,7 @@ public class InterfaceJogo { // InterfaceShisima
 		mnNewMenu.add(mntmIniciarPartida);
 		
 		
-//		BOTÕES
+//		BOTï¿½ES
 		
 		Icon iniciar = new ImageIcon(getClass().getResource("iniciar.png"));
 		Icon iniciar_clicado = new ImageIcon(getClass().getResource("iniciar-clicado.png"));
@@ -260,7 +260,7 @@ public class InterfaceJogo { // InterfaceShisima
 	}
 	
 
-	
+	// SwingAction do conectar
 	private class SwingAction extends AbstractAction {
 		/**
 		 * 
@@ -271,9 +271,8 @@ public class InterfaceJogo { // InterfaceShisima
 			putValue(SHORT_DESCRIPTION, "conectar a Netgames Server");
 		}
 		public void actionPerformed(ActionEvent e) {
-			// Necessï¿½rio definir endereï¿½o do servidor e nome do jogador
-			String mensagem = atorJogador.conectar("localhost", "nomeJogador?");
-			JOptionPane.showMessageDialog(null, mensagem);
+			String mensagem = atorJogador.conectar();
+			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
 		}
 	}
 	private class SwingAction_1 extends AbstractAction {
@@ -303,6 +302,21 @@ public class InterfaceJogo { // InterfaceShisima
 			String mensagem = atorJogador.iniciarPartida();
 			JOptionPane.showMessageDialog(null, mensagem);
 		}
+	}
+	
+	public String obterNomeJogador() {
+		String nome = JOptionPane.showInputDialog("Insira o nome do jogador"); 
+		return nome;
+	}
+
+
+	public String obterEnderecoServidor() {
+		String enderecoServidor = JOptionPane.showInputDialog("Insira o endereco do servidor"); 
+		return enderecoServidor;
+	}
+	
+	public void notificar(String notificacao) {
+		JOptionPane.showMessageDialog(null, notificacao);
 	}
 	
 	
