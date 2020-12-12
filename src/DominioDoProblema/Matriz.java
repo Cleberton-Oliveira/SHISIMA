@@ -16,10 +16,17 @@ public class Matriz {
 		posicoes[2][0].ocupante = segundo;
 		posicoes[2][1].ocupante = segundo;
 		posicoes[2][2].ocupante = segundo;
+		System.out.println("[Matriz] definirOcupantes 2");
 	}
 	
 	public void iniciar() {
+		System.out.println("[Matriz] iniciar");
 		this.posicoes = new Posicao[3][3];
+		for(int i = 0; i < 3; i++){
+		    for(int j = 0; j < 3; j++){
+		    	posicoes[i][j] = new Posicao();
+		    }
+		}
 	}
 
 	

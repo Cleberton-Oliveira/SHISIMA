@@ -9,6 +9,7 @@ import br.ufsc.inf.leobr.cliente.Proxy;
 import br.ufsc.inf.leobr.cliente.exception.ArquivoMultiplayerException;
 import br.ufsc.inf.leobr.cliente.exception.JahConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
+import br.ufsc.inf.leobr.cliente.exception.NaoJogandoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
 
 public class InterfaceNetgamesServer implements OuvidorProxy {
@@ -71,8 +72,8 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
 		JOptionPane.showMessageDialog(null, "[Teste] Netgames enviou partida iniciada");
-		JOptionPane.showMessageDialog(null, "o servidor enviou solicitacao de inicio de partida e isso deve ser tratado segundo as regras do seu jogo");
 		String nomeAdversario = this.proxy.obterNomeAdversario(posicao);
+		System.out.println("[iniciarNovaPartida] 0");
 		this.atorJogador.iniciarNovaPartida(posicao, nomeAdversario);
 	}
 
@@ -90,7 +91,19 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	@Override
 	public void receberJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("[receberJogada] ##################################");
+
+	}
+	
+	public void enviarJogada(Jogada jogada) {
+		try {
+			System.out.println("[enviarJogada] ******************************");
+
+			this.proxy.enviaJogada(jogada);
+		} catch (NaoJogandoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -114,6 +127,8 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 	
 
 }

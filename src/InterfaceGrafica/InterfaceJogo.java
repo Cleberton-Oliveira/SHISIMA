@@ -10,6 +10,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import DominioDoProblema.Lance;
+
 import javax.swing.JMenu;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
@@ -25,10 +27,8 @@ public class InterfaceJogo {
 	private final Action actionDesconectar = new SwingActionDesconectar();
 	private final Action actionIniciarPartida = new SwingActionIniciarPartida();
 	private InterfaceJogador atorJogador;
+	private boolean posOrigemSelecionada = false;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,17 +42,10 @@ public class InterfaceJogo {
 		});
 	}
 	
-
-	/**
-	 * Create the application.
-	 */
 	public InterfaceJogo() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		atorJogador = new InterfaceJogador(this);
 		
@@ -134,16 +127,13 @@ public class InterfaceJogo {
 		JLabel background = new JLabel();
 		background.setBounds(new Rectangle(00, 00, 600, 600));
 		background.setIcon(template);				
-		background.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
-			}
-		});
 		
 		JLabel vPosicao0 = new JLabel();
 		vPosicao0.setBounds(new Rectangle(274, 242, 190, 170));
 		vPosicao0.setIcon(iconeVazio);				
 		vPosicao0.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(1,1);
 			}
 		});
 		
@@ -152,6 +142,7 @@ public class InterfaceJogo {
 		vPosicao1.setIcon(iconeAzul);				
 		vPosicao1.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(0,1);
 				vPosicao1.setIcon(iconeAzulClicado);
 			}
 		});
@@ -161,6 +152,7 @@ public class InterfaceJogo {
 		vPosicao2.setIcon(iconeAzul);				
 		vPosicao2.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(0,2);
 				vPosicao2.setIcon(iconeAzulClicado);
 			}
 		});
@@ -169,6 +161,7 @@ public class InterfaceJogo {
 		vPosicao3.setIcon(iconeVazio);				
 		vPosicao3.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(1,2);
 				vPosicao3.setIcon(iconeVazioClicado);
 			}
 		});
@@ -178,6 +171,7 @@ public class InterfaceJogo {
 		vPosicao4.setIcon(iconeVermelho);				
 		vPosicao4.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(2,2);
 				vPosicao4.setIcon(iconeVermelhoClicado);
 			}
 		});
@@ -186,6 +180,7 @@ public class InterfaceJogo {
 		vPosicao5.setIcon(iconeVermelho);				
 		vPosicao5.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(2,1);
 				vPosicao5.setIcon(iconeVermelhoClicado);
 			}
 		});
@@ -195,6 +190,7 @@ public class InterfaceJogo {
 		vPosicao6.setIcon(iconeVermelho);				
 		vPosicao6.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(2,0);
 				vPosicao6.setIcon(iconeVermelhoClicado);
 			}
 		});
@@ -203,7 +199,7 @@ public class InterfaceJogo {
 		vPosicao7.setIcon(iconeVazio);				
 		vPosicao7.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-
+				click(1,0);
 			}
 		});
 		
@@ -213,12 +209,10 @@ public class InterfaceJogo {
 		vPosicao8.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				vPosicao8.setIcon(iconeAzulClicado);
+				click(0,0);
 			}
 		});
-	
 		
-		
-//		JLabel VetorPosicao[] = new JLabel[9];
 		frame.getContentPane().add(vPosicao0);
 		frame.getContentPane().add(vPosicao1);
 		frame.getContentPane().add(vPosicao2);
@@ -232,8 +226,38 @@ public class InterfaceJogo {
 
 	}
 	
+	public void click(int linha, int coluna) {
+		System.out.println("Usuario click");
+		boolean origemSelecionada = obterPosOrigemSelecionada();
+		if (origemSelecionada) {
+			String mensagem = atorJogador.lidarComClickDestino(linha, coluna);
+			if (!mensagem.equals("[Teste] OK")) {
+				notificar(mensagem);
+			} else {
+				System.out.println("[Teste] destino selecionada");
+				inverterValorPosOrigemSelecionada(); // marco origem como selecionada
+			}
+		} else {
+			String mensagem = atorJogador.lidarComClickOrigem(linha, coluna);
+			if (!mensagem.equals("[Teste] OK")) {
+				notificar(mensagem);
+			} else {
+				System.out.println("[Teste] origem selecionada");
+				inverterValorPosOrigemSelecionada(); // marco origem como selecionada
+			}
+		}
+	}
 
-	// SwingAction do conectar
+	
+	public boolean obterPosOrigemSelecionada() {
+		return posOrigemSelecionada;
+	}
+	
+	public void inverterValorPosOrigemSelecionada() {
+		this.posOrigemSelecionada = ! posOrigemSelecionada;
+	}
+	
+	
 	private class SwingActionConectar extends AbstractAction {
 
 		private static final long serialVersionUID = 1L;
@@ -245,7 +269,7 @@ public class InterfaceJogo {
 		
 		public void actionPerformed(ActionEvent e) {
 			String mensagem = atorJogador.conectar();
-			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
+			notificar(mensagem);
 		}
 	}
 	
@@ -258,7 +282,7 @@ public class InterfaceJogo {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String mensagem = atorJogador.desconectar();
-			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
+			notificar(mensagem);
 		}
 	}
 	
@@ -271,7 +295,7 @@ public class InterfaceJogo {
 		}
 		public void actionPerformed(ActionEvent e) {
 			String mensagem = atorJogador.iniciarPartida();
-			JOptionPane.showMessageDialog(null, mensagem);
+			notificar(mensagem);
 		}
 	}
 	

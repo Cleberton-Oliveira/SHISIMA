@@ -1,5 +1,7 @@
 package InterfaceGrafica;
 
+import DominioDoProblema.Estado;
+import DominioDoProblema.Lance;
 import DominioDoProblema.Tabuleiro;
 import Rede.InterfaceNetgamesServer;
 
@@ -73,7 +75,43 @@ public class InterfaceJogador {
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
+		System.out.println("[iniciarNovaPartida] 1");
 		this.tabuleiro.iniciarNovaPartida(ordem,nomeAdversario);
 	}
+	
+	public String lidarComClickOrigem(int linha, int coluna) {
+		boolean partidaEmAndamento = tabuleiro.obterPartidaEmAndamento();
+		if (!partidaEmAndamento) {
+			return "Não há partida em andamento!";
+		} else {
+			boolean meuTurno = tabuleiro.verificarTurno();
+			if (!meuTurno) {
+				return "Não é seu turno!";
+			} else {
+				boolean posValida = tabuleiro.verificarPosicaoOrigemValida(linha, coluna);
+				if (!posValida) {
+					return "Posição inválida!";
+				}
+			}
+		}
+		return "[Teste] OK";
+	}
+	
+	public String lidarComClickDestino(int linha, int coluna) {
+		boolean posValida = tabuleiro.verificarPosicaoDestinoValida(linha, coluna);
+		if (!posValida) {
+			return "Posição inválida!";
+		} else {
+			Estado estado = this.tabuleiro.obterEstado();
+			Lance lance = estado.obterLance();
+			enviarJogada(lance);
+		}
+		return "[Teste] OK";
+	}
+	
+	public void enviarJogada(Lance lance) {
+		this.ngServer.enviarJogada(lance);
+	}
+	
 
 }

@@ -4,12 +4,26 @@ public class Tabuleiro {
 	
 	protected Jogador jogador1;
 	protected Jogador jogador2;
+	protected Jogador daVez;
 	protected Matriz matriz;
+	protected Estado estado;
 	protected boolean conectado = false;
 	protected boolean partidaAndamento = false;
 
 	public Tabuleiro() {
 		matriz = new Matriz();
+	}
+	
+	public void definirDaVez(Jogador jogador) {
+		this.daVez = jogador;
+	}
+	
+	public Jogador obterDaVez() {
+		return this.daVez;
+	}
+	
+	public Estado obterEstado() {
+		return this.estado;
 	}
 
 	public void definirConectado(boolean valor) {
@@ -45,10 +59,12 @@ public class Tabuleiro {
 	}
 	
 	public void reiniciarTabuleiro() {
+		System.out.println("[Tabuleiro] reiniciarTabuleiro");
 		matriz.iniciar();
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
+		System.out.println("[iniciarNovaPartida] 2");
 		reiniciarTabuleiro();
 		
 		this.jogador1 = new Jogador();
@@ -58,12 +74,66 @@ public class Tabuleiro {
 		
 		if (ordem == 1) {
 			this.jogador1.definirComoPrimeiro();
+			definirDaVez(jogador1);
 			matriz.definirOcupantes(jogador1, jogador2);
 		} else {
 			this.jogador2.definirComoPrimeiro();
+			definirDaVez(jogador2);
 			matriz.definirOcupantes(jogador2, jogador1);
 		}
+		System.out.println("[iniciarNovaPartida] 3");
 		definirPartidaAndamento(true);
 	}
+	
+	public boolean verificarTurno() {
+		return obterDaVez().informarCor() == jogador1.informarCor();
+	}
+	
+	public boolean verificarPosicaoVazia(int linha, int coluna) {
+		return matriz.posicoes[linha][coluna].ocupante == null;
+	}
+	
+	/*
+	 * (PosicaoOrigem.linha - posicaoDestino.linha = 1 ou -1)
+                                OU
+		(PosicaoOrigem.coluna - PosicaoDestino.coluna = 1 ou -1)*/
+	private boolean verificarLanceValido(Lance lance) {
+		int valorLinha = lance.linhaOrigem - lance.linhaDestino;
+		int valorColuna = lance.colunaOrigem - lance.colunaDestino;
+		boolean linhaValida = valorLinha == 1 || valorLinha == -1;
+		boolean colunaValida = valorColuna == 1 || valorColuna == -1;
 
+		return linhaValida && colunaValida;
+	}
+	
+	public boolean verificarPosicaoOrigemValida(int linha, int coluna) {
+		boolean valida = false;
+		boolean vazia = verificarPosicaoVazia(linha, coluna);
+		if (!vazia) {
+			valida = matriz.posicoes[linha][coluna].ocupante.informarCor() == obterDaVez().informarCor();
+			if (valida) {
+				Lance lance = new Lance();
+				lance.definirLinhaOrigem(linha);
+				lance.definirColunaOrigem(coluna);
+				this.estado = new Estado();
+				this.estado.definirLance(lance);
+			}
+		}
+		return valida;
+	}
+	
+	public boolean verificarPosicaoDestinoValida(int linha, int coluna) {
+		boolean valida = false;
+		boolean vazia = verificarPosicaoVazia(linha, coluna);
+		if (vazia) {
+			Lance lance = this.estado.obterLance();
+			lance.definirLinhaDestino(linha);
+			lance.definirColunaDestino(coluna);
+			this.estado.definirLance(lance);
+		
+			valida = verificarLanceValido(lance);
+		}
+		return valida;
+	}
+	
 }
