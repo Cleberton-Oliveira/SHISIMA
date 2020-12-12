@@ -6,12 +6,12 @@ import Rede.InterfaceNetgamesServer;
 public class InterfaceJogador {
 	
 	protected InterfaceNetgamesServer ngServer;
-	protected Tabuleiro tabuleiro; // Nosso tabuleiro
+	protected Tabuleiro tabuleiro;
 	private InterfaceJogo iJogo;
 
 	public InterfaceJogador(InterfaceJogo iJogo) {
 		this.iJogo = iJogo;
-		ngServer = new InterfaceNetgamesServer();
+		ngServer = new InterfaceNetgamesServer(this);
 		tabuleiro = new Tabuleiro();
 	}
 
@@ -57,6 +57,7 @@ public class InterfaceJogador {
 			}
 				
 			mensagem = this.ngServer.desconectar();
+			this.tabuleiro.definirConectado(false);
 			
 		}
 		return mensagem;
@@ -69,6 +70,10 @@ public class InterfaceJogador {
 			mensagem = ngServer.iniciarPartida();
 		}
 		return mensagem;
+	}
+	
+	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
+		this.tabuleiro.iniciarNovaPartida(ordem,nomeAdversario);
 	}
 
 }

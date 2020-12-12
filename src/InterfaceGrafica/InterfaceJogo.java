@@ -18,12 +18,12 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class InterfaceJogo { // InterfaceShisima
+public class InterfaceJogo {
 
 	private JFrame frame;
-	private final Action actionConectar = new SwingActionConectar(); // action do conectar
-	private final Action actionDesconectar = new SwingActionDesconectar(); // action do desconectar
-	private final Action action_2 = new SwingAction_2();
+	private final Action actionConectar = new SwingActionConectar();
+	private final Action actionDesconectar = new SwingActionDesconectar();
+	private final Action actionIniciarPartida = new SwingActionIniciarPartida();
 	private InterfaceJogador atorJogador;
 
 	/**
@@ -41,8 +41,6 @@ public class InterfaceJogo { // InterfaceShisima
 			}
 		});
 	}
-	
-
 	
 
 	/**
@@ -63,168 +61,146 @@ public class InterfaceJogo { // InterfaceShisima
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Shisima");
+
+		JMenuItem menuItemConectar = new JMenuItem("conectar");
+		menuItemConectar.setAction(actionConectar);
+		JMenuItem menuItemDesconectar = new JMenuItem("desconectar");
+		menuItemDesconectar.setAction(actionDesconectar);
+		JMenuItem menuItemIniciarPartida = new JMenuItem("iniciar partida");
+		menuItemIniciarPartida.setAction(actionIniciarPartida);
 		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 57, 21);
-		frame.setJMenuBar(menuBar);
-			
-		JMenu mnNewMenu = new JMenu("Jogo");
-		mnNewMenu.setBounds(new Rectangle(1, 0, 57, 21));
-		menuBar.add(mnNewMenu);
+		// ICONES
+		Icon iconeIniciar = new ImageIcon(getClass().getResource("iniciar.png"));
+		Icon iconeIniciarClicado = new ImageIcon(getClass().getResource("iniciar-clicado.png"));
+		Icon iconeConectar = new ImageIcon(getClass().getResource("conectar.png"));
+		Icon iconeConectarClicado = new ImageIcon(getClass().getResource("conectar-clicado.png"));
+		Icon iconeDesconectar = new ImageIcon(getClass().getResource("desconectar.png"));
+		Icon iconeDesconectarClicado = new ImageIcon(getClass().getResource("desconectar-clicado.png"));
 		
-		JMenuItem mntmConectar = new JMenuItem("conectar");
-		mntmConectar.setAction(actionConectar);
-		mnNewMenu.add(mntmConectar);
+		//	BOTOES
+		JLabel botaoConectar = new JLabel();
+		JLabel botaoDesconectar = new JLabel();
+		JLabel botaoIniciar = new JLabel();
 		
-		JMenuItem mntmDesconectar = new JMenuItem("desconectar");
-		mntmDesconectar.setAction(actionDesconectar);
-		mnNewMenu.add(mntmDesconectar);
-		
-		JMenuItem mntmIniciarPartida = new JMenuItem("iniciar partida");
-		mntmIniciarPartida.setAction(action_2);
-		mnNewMenu.add(mntmIniciarPartida);
-		
-		
-//		BOTOES
-		
-		Icon iniciar = new ImageIcon(getClass().getResource("iniciar.png"));
-		Icon iniciar_clicado = new ImageIcon(getClass().getResource("iniciar-clicado.png"));
-		Icon conectar = new ImageIcon(getClass().getResource("conectar.png"));
-		Icon conectar_clicado = new ImageIcon(getClass().getResource("conectar-clicado.png"));
-		Icon desconectar = new ImageIcon(getClass().getResource("desconectar.png"));
-		Icon desconectar_clicado = new ImageIcon(getClass().getResource("desconectar-clicado.png"));
-		
-		
-		JLabel iniciar_botao = new JLabel();
-		iniciar_botao.setBounds(new Rectangle(20, -30, 190, 170));
-		iniciar_botao.setIcon(iniciar);
-		iniciar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
+		botaoConectar.setBounds(new Rectangle(450, -30, 190, 170));
+		botaoConectar.setIcon(iconeConectar);		
+		botaoConectar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				iniciar_botao.setIcon(iniciar_clicado);
-				mntmIniciarPartida.doClick();
-				iniciar_botao.setIcon(iniciar);
-				
-			}
-		});
-		
-		JLabel conectar_botao = new JLabel();
-		JLabel desconectar_botao = new JLabel();
-		
-		conectar_botao.setBounds(new Rectangle(450, -30, 190, 170));
-		conectar_botao.setIcon(conectar);				
-		conectar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
-				conectar_botao.setIcon(conectar_clicado);
-				mntmConectar.doClick();
-				conectar_botao.setIcon(conectar);
+				botaoConectar.setIcon(iconeConectarClicado);
+				menuItemConectar.doClick();
+				botaoConectar.setIcon(iconeConectar);
 				if (atorJogador.ngServer.informarConectado()) {
-					conectar_botao.setVisible(false);
+					botaoConectar.setVisible(false);
 				}
 			}
 		});
 		
-		desconectar_botao.setBounds(new Rectangle(450, -30, 190, 170));
-		desconectar_botao.setIcon(desconectar);				
-		desconectar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
+		botaoDesconectar.setBounds(new Rectangle(450, -30, 190, 170));
+		botaoDesconectar.setIcon(iconeDesconectar);				
+		botaoDesconectar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				desconectar_botao.setIcon(desconectar_clicado);	 
-				mntmDesconectar.doClick();
-				desconectar_botao.setIcon(desconectar);
+				botaoDesconectar.setIcon(iconeDesconectarClicado);	 
+				menuItemDesconectar.doClick();
+				botaoDesconectar.setIcon(iconeDesconectar);
 				if (!atorJogador.ngServer.informarConectado()) {
-					conectar_botao.setVisible(true);
+					botaoConectar.setVisible(true);
 				}
 			}
 		});
 		
-		frame.getContentPane().add(iniciar_botao);
-		frame.getContentPane().add(conectar_botao);
-		frame.getContentPane().add(desconectar_botao);
-
-//		TABULEIRO 
+		botaoIniciar.setBounds(new Rectangle(20, -30, 190, 170));
+		botaoIniciar.setIcon(iconeIniciar);
+		botaoIniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				botaoIniciar.setIcon(iconeIniciarClicado);
+				menuItemIniciarPartida.doClick();
+				botaoIniciar.setIcon(iconeIniciar);
+			}
+		});
 		
-		Icon vazio = new ImageIcon(getClass().getResource("vazio.png"));
-		Icon azul = new ImageIcon(getClass().getResource("azul.png"));
-		Icon vermelho = new ImageIcon(getClass().getResource("vermelho.png"));
-		Icon template = new ImageIcon(getClass().getResource("template.png"));
-		Icon azul_clicado = new ImageIcon(getClass().getResource("azul-clicado.png"));
-		Icon vermelho_clicado = new ImageIcon(getClass().getResource("vermelho-clicado.png"));
-		Icon vazio_clicavel = new ImageIcon(getClass().getResource("vazio-clicavel.png"));
+		frame.getContentPane().add(botaoConectar);
+		frame.getContentPane().add(botaoDesconectar);
+		frame.getContentPane().add(botaoIniciar);
 
-	
+		// TABULEIRO
+		Icon iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
+		Icon iconeVazioClicado = new ImageIcon(getClass().getResource("vazio-clicavel.png"));
+		Icon iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
+		Icon iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
+		Icon template = new ImageIcon(getClass().getResource("template.png"));
+		Icon iconeAzulClicado = new ImageIcon(getClass().getResource("azul-clicado.png"));
+		Icon iconeVermelhoClicado = new ImageIcon(getClass().getResource("vermelho-clicado.png"));
 		
 		JLabel background = new JLabel();
 		background.setBounds(new Rectangle(00, 00, 600, 600));
 		background.setIcon(template);				
 		background.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-
 			}
 		});
-
 		
 		JLabel vPosicao0 = new JLabel();
 		vPosicao0.setBounds(new Rectangle(274, 242, 190, 170));
-		vPosicao0.setIcon(vazio);				
+		vPosicao0.setIcon(iconeVazio);				
 		vPosicao0.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-			
 			}
 		});
 		
 		JLabel vPosicao1 = new JLabel();
 		vPosicao1.setBounds(new Rectangle(274, 44, 190, 170));
-		vPosicao1.setIcon(azul);				
+		vPosicao1.setIcon(iconeAzul);				
 		vPosicao1.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao1.setIcon(azul_clicado);
+				vPosicao1.setIcon(iconeAzulClicado);
 			}
 		});
 	
 		JLabel vPosicao2 = new JLabel();
 		vPosicao2.setBounds(new Rectangle(414, 102, 190, 170));
-		vPosicao2.setIcon(azul);				
+		vPosicao2.setIcon(iconeAzul);				
 		vPosicao2.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao2.setIcon(azul_clicado);
+				vPosicao2.setIcon(iconeAzulClicado);
 			}
 		});
 		JLabel vPosicao3 = new JLabel();
 		vPosicao3.setBounds(new Rectangle(472, 242, 190, 170));
-		vPosicao3.setIcon(vazio);				
+		vPosicao3.setIcon(iconeVazio);				
 		vPosicao3.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-
+				vPosicao3.setIcon(iconeVazioClicado);
 			}
 		});
 	
 		JLabel vPosicao4 = new JLabel();
 		vPosicao4.setBounds(new Rectangle(414, 380, 190, 170));
-		vPosicao4.setIcon(vermelho);				
+		vPosicao4.setIcon(iconeVermelho);				
 		vPosicao4.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao4.setIcon(vermelho_clicado);
+				vPosicao4.setIcon(iconeVermelhoClicado);
 			}
 		});
 		JLabel vPosicao5 = new JLabel();
 		vPosicao5.setBounds(new Rectangle(274, 440, 190, 170));
-		vPosicao5.setIcon(vermelho);				
+		vPosicao5.setIcon(iconeVermelho);				
 		vPosicao5.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao5.setIcon(vermelho_clicado);
+				vPosicao5.setIcon(iconeVermelhoClicado);
 			}
 		});
 		
 		JLabel vPosicao6 = new JLabel();
 		vPosicao6.setBounds(new Rectangle(134, 380, 190, 170));
-		vPosicao6.setIcon(vermelho);				
+		vPosicao6.setIcon(iconeVermelho);				
 		vPosicao6.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao6.setIcon(vermelho_clicado);
+				vPosicao6.setIcon(iconeVermelhoClicado);
 			}
 		});
 		JLabel vPosicao7 = new JLabel();
 		vPosicao7.setBounds(new Rectangle(76, 242, 190, 170));
-		vPosicao7.setIcon(vazio);				
+		vPosicao7.setIcon(iconeVazio);				
 		vPosicao7.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 
@@ -233,10 +209,10 @@ public class InterfaceJogo { // InterfaceShisima
 		
 		JLabel vPosicao8 = new JLabel();
 		vPosicao8.setBounds(new Rectangle(134, 102, 190, 170));
-		vPosicao8.setIcon(azul);				
+		vPosicao8.setIcon(iconeAzul);				
 		vPosicao8.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao8.setIcon(azul_clicado);
+				vPosicao8.setIcon(iconeAzulClicado);
 			}
 		});
 	
@@ -259,9 +235,7 @@ public class InterfaceJogo { // InterfaceShisima
 
 	// SwingAction do conectar
 	private class SwingActionConectar extends AbstractAction {
-		/**
-		 * 
-		 */
+
 		private static final long serialVersionUID = 1L;
 		
 		public SwingActionConectar() {
@@ -276,9 +250,7 @@ public class InterfaceJogo { // InterfaceShisima
 	}
 	
 	private class SwingActionDesconectar extends AbstractAction {
-		/**
-		 * 
-		 */
+
 		private static final long serialVersionUID = 1L;
 		public SwingActionDesconectar() {
 			putValue(NAME, "desconectar");
@@ -290,12 +262,10 @@ public class InterfaceJogo { // InterfaceShisima
 		}
 	}
 	
-	private class SwingAction_2 extends AbstractAction {
-		/**
-		 * 
-		 */
+	private class SwingActionIniciarPartida extends AbstractAction {
+
 		private static final long serialVersionUID = 1L;
-		public SwingAction_2() {
+		public SwingActionIniciarPartida() {
 			putValue(NAME, "iniciar partida");
 			putValue(SHORT_DESCRIPTION, "iniciar partida do seu jogo");
 		}

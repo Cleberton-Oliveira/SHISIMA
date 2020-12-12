@@ -2,6 +2,7 @@ package Rede;
 
 import javax.swing.JOptionPane;
 
+import InterfaceGrafica.InterfaceJogador;
 import br.ufsc.inf.leobr.cliente.Jogada;
 import br.ufsc.inf.leobr.cliente.OuvidorProxy;
 import br.ufsc.inf.leobr.cliente.Proxy;
@@ -15,11 +16,13 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	private static final long serialVersionUID = 1L;
 	protected Proxy proxy;
 	protected boolean conectado = false;
+	private InterfaceJogador atorJogador;
 	
-	public InterfaceNetgamesServer() {
+	public InterfaceNetgamesServer(InterfaceJogador atorJogador) {
 		super();
 		this.proxy = Proxy.getInstance();
-		proxy.addOuvinte(this);	
+		proxy.addOuvinte(this);
+		this.atorJogador = atorJogador;
 	}
 	
 	public String conectar(String servidor, String nome) {
@@ -59,7 +62,6 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 		try {
 			proxy.iniciarPartida(new Integer(2)); // supondo 2 jogadores, o que pode ser alterado
 		} catch (NaoConectadoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "Falha ao tentar enviar solicitacao de inicio enviada a Netgames Server";
 		}
@@ -68,8 +70,10 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
-		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(null, "[Teste] Netgames enviou partida iniciada");
 		JOptionPane.showMessageDialog(null, "o servidor enviou solicitacao de inicio de partida e isso deve ser tratado segundo as regras do seu jogo");
+		String nomeAdversario = this.proxy.obterNomeAdversario(posicao);
+		this.atorJogador.iniciarNovaPartida(posicao, nomeAdversario);
 	}
 
 	@Override

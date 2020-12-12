@@ -1,15 +1,15 @@
 	package DominioDoProblema;
 
-public class Tabuleiro { // Nosso tabuleiro
+public class Tabuleiro {
 	
 	protected Jogador jogador1;
 	protected Jogador jogador2;
-	protected Matriz vetorPosicoes;
+	protected Matriz matriz;
 	protected boolean conectado = false;
 	protected boolean partidaAndamento = false;
 
 	public Tabuleiro() {
-		// TODO Auto-generated constructor stub
+		matriz = new Matriz();
 	}
 
 	public void definirConectado(boolean valor) {
@@ -24,31 +24,46 @@ public class Tabuleiro { // Nosso tabuleiro
 		partidaAndamento = valor;
 	}
 	
-	
 	public boolean permitidoConectar() {
 		return !conectado;
-		// defina a l�gica do seu jogo
 	}
 	
 	public boolean permitidoDesconectar() {
 		return conectado;
-		// defina a l�gica do seu jogo
 	}
 
 	public boolean permitidoIniciarPartida() {
 		return !partidaAndamento;
-		// defina a l�gica do seu jogo
 	}
 
 	public boolean obterPartidaEmAndamento() {
-		// TODO Auto-generated method stub
 		return this.partidaAndamento;
 	}
 
 	public boolean encerrarHavendoPartida() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
+	
+	public void reiniciarTabuleiro() {
+		matriz.iniciar();
+	}
+	
+	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
+		reiniciarTabuleiro();
+		
+		this.jogador1 = new Jogador();
+		this.jogador2 = new Jogador();
+		
+		this.jogador2.definirNome(nomeAdversario);
+		
+		if (ordem == 1) {
+			this.jogador1.definirComoPrimeiro();
+			matriz.definirOcupantes(jogador1, jogador2);
+		} else {
+			this.jogador2.definirComoPrimeiro();
+			matriz.definirOcupantes(jogador2, jogador1);
+		}
+		definirPartidaAndamento(true);
+	}
 
 }

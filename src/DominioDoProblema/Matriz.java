@@ -4,7 +4,24 @@ public class Matriz {
 	
 	protected Posicao[][] posicoes;
 	
-	public Matriz() {}
+	public Matriz() {
+		this.iniciar();
+	}
+	
+	public void definirOcupantes(Jogador primeiro, Jogador segundo) {
+		posicoes[0][0].ocupante = primeiro;
+		posicoes[0][1].ocupante = primeiro;
+		posicoes[0][2].ocupante = primeiro;
+		
+		posicoes[2][0].ocupante = segundo;
+		posicoes[2][1].ocupante = segundo;
+		posicoes[2][2].ocupante = segundo;
+	}
+	
+	public void iniciar() {
+		this.posicoes = new Posicao[3][3];
+	}
+
 	
 	public boolean avaliarTresPosicoesAlinhadas() {
 		int i = 1;
