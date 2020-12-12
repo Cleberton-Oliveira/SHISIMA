@@ -24,6 +24,7 @@ public class InterfaceJogador {
 			String nomeJogador = this.iJogo.obterNomeJogador();
 			String enderecoServidor = this.iJogo.obterEnderecoServidor();
 			mensagem = this.ngServer.conectar(enderecoServidor, nomeJogador);
+			this.tabuleiro.definirConectado(true);
 			
 		} else {
 			mensagem = "Você já está conectado";

@@ -21,8 +21,8 @@ import javax.swing.ImageIcon;
 public class InterfaceJogo { // InterfaceShisima
 
 	private JFrame frame;
-	private final Action action = new SwingAction(); // action do conectar
-	private final Action action_1 = new SwingAction_1(); // action do desconectar
+	private final Action actionConectar = new SwingActionConectar(); // action do conectar
+	private final Action actionDesconectar = new SwingActionDesconectar(); // action do desconectar
 	private final Action action_2 = new SwingAction_2();
 	private InterfaceJogador atorJogador;
 
@@ -73,11 +73,11 @@ public class InterfaceJogo { // InterfaceShisima
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmConectar = new JMenuItem("conectar");
-		mntmConectar.setAction(action);
+		mntmConectar.setAction(actionConectar);
 		mnNewMenu.add(mntmConectar);
 		
 		JMenuItem mntmDesconectar = new JMenuItem("desconectar");
-		mntmDesconectar.setAction(action_1);
+		mntmDesconectar.setAction(actionDesconectar);
 		mnNewMenu.add(mntmDesconectar);
 		
 		JMenuItem mntmIniciarPartida = new JMenuItem("iniciar partida");
@@ -85,7 +85,7 @@ public class InterfaceJogo { // InterfaceShisima
 		mnNewMenu.add(mntmIniciarPartida);
 		
 		
-//		BOT�ES
+//		BOTOES
 		
 		Icon iniciar = new ImageIcon(getClass().getResource("iniciar.png"));
 		Icon iniciar_clicado = new ImageIcon(getClass().getResource("iniciar-clicado.png"));
@@ -97,53 +97,50 @@ public class InterfaceJogo { // InterfaceShisima
 		
 		JLabel iniciar_botao = new JLabel();
 		iniciar_botao.setBounds(new Rectangle(20, -30, 190, 170));
-		iniciar_botao.setIcon(iniciar);				
+		iniciar_botao.setIcon(iniciar);
 		iniciar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				iniciar_botao.setIcon(iniciar_clicado);
-				//esperar 0.3segundos 
-				//iniciar_botao.setIcon(iniciar);
+				mntmIniciarPartida.doClick();
+				iniciar_botao.setIcon(iniciar);
+				
 			}
 		});
+		
 		JLabel conectar_botao = new JLabel();
+		JLabel desconectar_botao = new JLabel();
+		
 		conectar_botao.setBounds(new Rectangle(450, -30, 190, 170));
 		conectar_botao.setIcon(conectar);				
 		conectar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				conectar_botao.setIcon(conectar_clicado);	
-				//esperar 0.3segundos 
-				//conectar_botao.setIcon(conectar);
+				conectar_botao.setIcon(conectar_clicado);
+				mntmConectar.doClick();
+				conectar_botao.setIcon(conectar);
+				if (atorJogador.ngServer.informarConectado()) {
+					conectar_botao.setVisible(false);
+				}
 			}
 		});
 		
-		JLabel desconectar_botao = new JLabel();
 		desconectar_botao.setBounds(new Rectangle(450, -30, 190, 170));
 		desconectar_botao.setIcon(desconectar);				
 		desconectar_botao.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				desconectar_botao.setIcon(desconectar_clicado);	 
-				//esperar 0.3segundos 
-				//conectar_botao.setIcon(desconectar);
+				mntmDesconectar.doClick();
+				desconectar_botao.setIcon(desconectar);
+				if (!atorJogador.ngServer.informarConectado()) {
+					conectar_botao.setVisible(true);
+				}
 			}
 		});
 		
-//	
 		frame.getContentPane().add(iniciar_botao);
-		if(true) {
-			frame.getContentPane().add(conectar_botao);
-		}else {
-			frame.getContentPane().add(desconectar_botao);
-		};
-		
-		
-		
+		frame.getContentPane().add(conectar_botao);
+		frame.getContentPane().add(desconectar_botao);
 
-		
-		
-		
-		
 //		TABULEIRO 
-		
 		
 		Icon vazio = new ImageIcon(getClass().getResource("vazio.png"));
 		Icon azul = new ImageIcon(getClass().getResource("azul.png"));
@@ -261,26 +258,29 @@ public class InterfaceJogo { // InterfaceShisima
 	
 
 	// SwingAction do conectar
-	private class SwingAction extends AbstractAction {
+	private class SwingActionConectar extends AbstractAction {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		public SwingAction() {
+		
+		public SwingActionConectar() {
 			putValue(NAME, "conectar");
 			putValue(SHORT_DESCRIPTION, "conectar a Netgames Server");
 		}
+		
 		public void actionPerformed(ActionEvent e) {
 			String mensagem = atorJogador.conectar();
 			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
 		}
 	}
-	private class SwingAction_1 extends AbstractAction {
+	
+	private class SwingActionDesconectar extends AbstractAction {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		public SwingAction_1() {
+		public SwingActionDesconectar() {
 			putValue(NAME, "desconectar");
 			putValue(SHORT_DESCRIPTION, "desconectar de Netgames Server");
 		}
@@ -289,6 +289,7 @@ public class InterfaceJogo { // InterfaceShisima
 			JOptionPane.showMessageDialog(null, mensagem); // aqui deve chamar o notificar, porem da classe pai
 		}
 	}
+	
 	private class SwingAction_2 extends AbstractAction {
 		/**
 		 * 
