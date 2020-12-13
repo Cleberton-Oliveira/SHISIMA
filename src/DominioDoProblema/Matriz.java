@@ -8,6 +8,16 @@ public class Matriz {
 		this.iniciar();
 	}
 	
+	public void iniciar() {
+		System.out.println("[Matriz] iniciar");
+		this.posicoes = new Posicao[3][3];
+		for(int i = 0; i < 3; i++){
+		    for(int j = 0; j < 3; j++){
+		    	posicoes[i][j] = new Posicao();
+		    }
+		}
+	}
+	
 	public void definirOcupantes(Jogador primeiro, Jogador segundo) {
 		posicoes[0][0].ocupante = primeiro;
 		posicoes[0][1].ocupante = primeiro;
@@ -17,16 +27,6 @@ public class Matriz {
 		posicoes[2][1].ocupante = segundo;
 		posicoes[2][2].ocupante = segundo;
 		System.out.println("[Matriz] definirOcupantes 2");
-	}
-	
-	public void iniciar() {
-		System.out.println("[Matriz] iniciar");
-		this.posicoes = new Posicao[3][3];
-		for(int i = 0; i < 3; i++){
-		    for(int j = 0; j < 3; j++){
-		    	posicoes[i][j] = new Posicao();
-		    }
-		}
 	}
 	
 	public void testePrintMatriz() {

@@ -230,10 +230,8 @@ public class InterfaceJogo {
 		System.out.println("Usuario click");
 		boolean origemSelecionada = obterPosOrigemSelecionada();
 		if (origemSelecionada) {
-			String mensagem = atorJogador.lidarComClickDestino(linha, coluna);
-			if (!mensagem.equals("[Teste] OK")) {
-				notificar(mensagem);
-			} else {
+			boolean posValida = atorJogador.validarClickDestino(linha, coluna);
+			if (posValida) {
 				System.out.println("[Teste] destino selecionada");
 				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada(); // desmarco origem como selecionada
@@ -241,10 +239,8 @@ public class InterfaceJogo {
 				atorJogador.atualizarEstado();
 			}
 		} else {
-			String mensagem = atorJogador.lidarComClickOrigem(linha, coluna);
-			if (!mensagem.equals("[Teste] OK")) {
-				notificar(mensagem);
-			} else {
+			boolean posValida = atorJogador.validarClickOrigem(linha, coluna);
+			if (posValida) {
 				System.out.println("[Teste] origem selecionada");
 				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada(); // marco origem como selecionada

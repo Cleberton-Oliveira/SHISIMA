@@ -6,7 +6,7 @@ public class Estado {
 	protected String mensagem;
 	
 	public Estado() {
-		this.lance = new Lance();
+		definirLance(new Lance());
 	}
 	
 	public void definirLance(Lance lance) {

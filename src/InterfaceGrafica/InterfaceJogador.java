@@ -80,35 +80,36 @@ public class InterfaceJogador {
 		this.tabuleiro.iniciarNovaPartida(ordem,nomeAdversario);
 	}
 	
-	public String lidarComClickOrigem(int linha, int coluna) {
+	public boolean validarClickOrigem(int linha, int coluna) {
+		boolean posValida = false;
 		boolean partidaEmAndamento = tabuleiro.obterPartidaEmAndamento();
 		if (!partidaEmAndamento) {
-			return "Não há partida em andamento!";
+			this.iJogo.notificar("Não há partida em andamento!");
 		} else {
 			boolean meuTurno = tabuleiro.verificarTurno();
 			if (!meuTurno) {
-				return "Não é seu turno!";
+				this.iJogo.notificar("Não é seu turno!");
 			} else {
-				boolean posValida = tabuleiro.verificarPosicaoOrigemValida(linha, coluna);
+				posValida = tabuleiro.verificarPosicaoOrigemValida(linha, coluna);
 				if (!posValida) {
-					return "Posição de origem inválida!";
+					this.iJogo.notificar("Posição de origem inválida!");
 				}
 			}
 		}
-		return "[Teste] OK";
+		return posValida;
 	}
 	
 	// TODO verficar o vencedor
-	public String lidarComClickDestino(int linha, int coluna) {
+	public boolean validarClickDestino(int linha, int coluna) {
 		boolean posValida = tabuleiro.verificarPosicaoDestinoValida(linha, coluna);
 		if (!posValida) {
-			return "Posição de destino inválida!";
+			this.iJogo.notificar("Posição de destino inválida!");
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
 			enviarJogada(lance);
 		}
-		return "[Teste] OK";
+		return posValida;
 	}
 	
 	public void enviarJogada(Lance lance) {

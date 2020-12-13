@@ -47,14 +47,14 @@ public class Tabuleiro {
 		return true;
 	}
 	
-	public void reiniciarTabuleiro() {
+	public void iniciarTabuleiro() {
 		System.out.println("[Tabuleiro] reiniciarTabuleiro");
 		matriz.iniciar();
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
 		System.out.println("[iniciarNovaPartida] 2");
-		reiniciarTabuleiro();
+		iniciarTabuleiro();
 		
 		this.jogadorLocal = new Jogador();
 		this.jogadorRemoto = new Jogador();
