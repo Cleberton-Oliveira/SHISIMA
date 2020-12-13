@@ -30,11 +30,15 @@ public class Jogador {
 		definirCor(1);
 	}
 	
-	public void inverterTurno() {
+	private void inverterTurno() {
 		this.meuTurno = !meuTurno;
 	}
 	
 	public boolean informarTurno() {
 		return this.meuTurno;
+	}
+	
+	public void definirVencedor() {
+		this.vencedor = true;
 	}
 }

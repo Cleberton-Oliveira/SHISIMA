@@ -109,7 +109,13 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 		return this.conectado;
 	}
 
-	public void encerrarPartida() {		
+	public void encerrarPartida() {
+		try {
+			this.proxy.finalizarPartida();
+		} catch (NaoConectadoException | NaoJogandoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

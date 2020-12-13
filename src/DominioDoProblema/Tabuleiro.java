@@ -141,6 +141,15 @@ public class Tabuleiro {
 	public boolean verificarVencedor() {
 		return this.matriz.avaliarTresPosicoesAlinhadas(obterDaVez());
 	}
+	
+	public void registrarVencedor() {
+		obterDaVez().definirVencedor();
+	}
+	
+	public void encerrarPartida() {
+		definirPartidaAndamento(false);
+		iniciarTabuleiro(); // here
+	}
 
 	
 }

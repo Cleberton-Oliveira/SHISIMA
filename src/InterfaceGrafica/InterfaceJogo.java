@@ -31,6 +31,9 @@ public class InterfaceJogo {
 	private InterfaceJogador atorJogador;
 	private boolean posOrigemSelecionada = false;
 	private JLabel[][] JLabels;
+	Icon iconeVazio;
+	Icon iconeAzul;
+	Icon iconeVermelho;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,7 +52,8 @@ public class InterfaceJogo {
 		initialize();
 	}
 
-	private void initialize() {
+	public void initialize() {
+		System.out.println("[initialize");
 		atorJogador = new InterfaceJogador(this);
 		
 		frame = new JFrame();
@@ -119,9 +123,9 @@ public class InterfaceJogo {
 		frame.getContentPane().add(botaoIniciar);
 
 		// TABULEIRO
-		Icon iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
-		Icon iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
-		Icon iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
+		iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
+		iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
+		iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
 		Icon template = new ImageIcon(getClass().getResource("template.png"));
 		
 		JLabel background = new JLabel();
@@ -245,7 +249,7 @@ public class InterfaceJogo {
 			boolean posValida = atorJogador.validarClickDestino(linha, coluna);
 			if (posValida) {
 				inverterValorPosOrigemSelecionada();
-				atorJogador.atualizarEstado();
+				atorJogador.atualizarEstado();// AQUI
 			}
 		} else {
 			boolean posValida = atorJogador.validarClickOrigem(linha, coluna);
@@ -278,6 +282,20 @@ public class InterfaceJogo {
 	
 	public void inverterValorPosOrigemSelecionada() {
 		this.posOrigemSelecionada = ! posOrigemSelecionada;
+	}
+	
+	public void assumirPosicaoInicial() {
+		JLabels[0][0].setIcon(iconeAzul);
+		JLabels[0][1].setIcon(iconeAzul);
+		JLabels[0][2].setIcon(iconeAzul);
+		
+		JLabels[1][0].setIcon(iconeVazio);
+		JLabels[1][1].setIcon(iconeVazio);
+		JLabels[1][2].setIcon(iconeVazio);
+		
+		JLabels[2][0].setIcon(iconeVermelho);
+		JLabels[2][1].setIcon(iconeVermelho);
+		JLabels[2][2].setIcon(iconeVermelho);
 	}
 	
 	

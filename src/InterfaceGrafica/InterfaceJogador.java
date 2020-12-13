@@ -77,7 +77,6 @@ public class InterfaceJogador {
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
-//		System.out.println("[iniciarNovaPartida] 1");
 		this.tabuleiro.iniciarNovaPartida(ordem,nomeAdversario);
 	}
 	
@@ -100,7 +99,6 @@ public class InterfaceJogador {
 		return posValida;
 	}
 	
-	// TODO verficar o vencedor
 	public boolean validarClickDestino(int linha, int coluna) {
 		boolean posValida = tabuleiro.verificarPosicaoDestinoValida(linha, coluna);
 		if (!posValida) {
@@ -108,11 +106,7 @@ public class InterfaceJogador {
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
-			boolean vencedor = this.tabuleiro.verificarVencedor();
-			if (vencedor) {
-				System.out.println("*LOCAL VENCEU*");
-			}
-			enviarJogada(lance); 
+			enviarJogada(lance);
 		}
 		return posValida;
 	}
@@ -122,13 +116,23 @@ public class InterfaceJogador {
 	}
 	
 	public void atualizarEstado() {
-		this.tabuleiro.atualizarEstado(); // aqui aloca e desaloca
+		this.tabuleiro.atualizarEstado();
 		boolean vencedor = this.tabuleiro.verificarVencedor();
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = estado.obterLance();
 		this.iJogo.atualizarEstado(lance);
 		if (vencedor) {
-			System.out.println("*REMOTO VENCEU*");
+			this.tabuleiro.registrarVencedor();
+			Jogador jogadorVencedor = this.tabuleiro.obterDaVez();
+			int cor = jogadorVencedor.informarCor();
+			if (cor == 1) {
+				this.iJogo.notificar("Azul venceu!");
+			} else {
+				this.iJogo.notificar("Vermelho venceu!");
+			}
+			this.tabuleiro.encerrarPartida();
+			this.iJogo.assumirPosicaoInicial(); // AQUIIIII
+			this.ngServer.encerrarPartida();
 		}
 		this.tabuleiro.trocarTurno();
 
