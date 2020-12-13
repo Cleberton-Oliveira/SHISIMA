@@ -34,7 +34,9 @@ public class Matriz {
 		for(int i = 0; i < 3; i++){
 		    for(int j = 0; j < 3; j++){
 		    	System.out.print(i);
+		    	System.out.print(",");
 		    	System.out.print(j);
+		    	System.out.print(": ");
 		    	if (posicoes[i][j].ocupante != null) {
 		    		if (posicoes[i][j].ocupante.informarCor() == 0) {
 			    		System.out.println("vermelho");

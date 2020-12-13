@@ -68,8 +68,8 @@ public class InterfaceJogador {
 	
 	public String iniciarPartida() {
 		String mensagem = "Condicao para iniciar partida nao atendida (defina qual)";
-		boolean permitido = tabuleiro.permitidoIniciarPartida();
-		if (permitido) {
+		boolean partidaEmAndamento = tabuleiro.obterPartidaEmAndamento();
+		if (!partidaEmAndamento) {
 			mensagem = ngServer.iniciarPartida();
 		}
 		return mensagem;

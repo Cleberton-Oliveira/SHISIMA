@@ -129,7 +129,7 @@ public class InterfaceJogo {
 		background.setIcon(template);				
 		
 		JLabel vPosicao0 = new JLabel();
-		vPosicao0.setBounds(new Rectangle(274, 242, 190, 170));
+		vPosicao0.setBounds(new Rectangle(274, 242, 170, 170));
 		vPosicao0.setIcon(iconeVazio);				
 		vPosicao0.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -138,7 +138,7 @@ public class InterfaceJogo {
 		});
 		
 		JLabel vPosicao1 = new JLabel();
-		vPosicao1.setBounds(new Rectangle(274, 44, 190, 170));
+		vPosicao1.setBounds(new Rectangle(274, 44, 170, 170));
 		vPosicao1.setIcon(iconeAzul);				
 		vPosicao1.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -148,7 +148,7 @@ public class InterfaceJogo {
 		});
 	
 		JLabel vPosicao2 = new JLabel();
-		vPosicao2.setBounds(new Rectangle(414, 102, 190, 170));
+		vPosicao2.setBounds(new Rectangle(414, 102, 170, 170));
 		vPosicao2.setIcon(iconeAzul);				
 		vPosicao2.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -157,7 +157,7 @@ public class InterfaceJogo {
 			}
 		});
 		JLabel vPosicao3 = new JLabel();
-		vPosicao3.setBounds(new Rectangle(472, 242, 190, 170));
+		vPosicao3.setBounds(new Rectangle(472, 242, 170, 170));
 		vPosicao3.setIcon(iconeVazio);				
 		vPosicao3.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -167,7 +167,7 @@ public class InterfaceJogo {
 		});
 	
 		JLabel vPosicao4 = new JLabel();
-		vPosicao4.setBounds(new Rectangle(414, 380, 190, 170));
+		vPosicao4.setBounds(new Rectangle(414, 380, 170, 170));
 		vPosicao4.setIcon(iconeVermelho);				
 		vPosicao4.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -176,7 +176,7 @@ public class InterfaceJogo {
 			}
 		});
 		JLabel vPosicao5 = new JLabel();
-		vPosicao5.setBounds(new Rectangle(274, 440, 190, 170));
+		vPosicao5.setBounds(new Rectangle(274, 440, 170, 170));
 		vPosicao5.setIcon(iconeVermelho);				
 		vPosicao5.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -186,7 +186,7 @@ public class InterfaceJogo {
 		});
 		
 		JLabel vPosicao6 = new JLabel();
-		vPosicao6.setBounds(new Rectangle(134, 380, 190, 170));
+		vPosicao6.setBounds(new Rectangle(134, 380, 170, 170));
 		vPosicao6.setIcon(iconeVermelho);				
 		vPosicao6.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -195,7 +195,7 @@ public class InterfaceJogo {
 			}
 		});
 		JLabel vPosicao7 = new JLabel();
-		vPosicao7.setBounds(new Rectangle(76, 242, 190, 170));
+		vPosicao7.setBounds(new Rectangle(76, 242, 170, 170));
 		vPosicao7.setIcon(iconeVazio);				
 		vPosicao7.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -204,7 +204,7 @@ public class InterfaceJogo {
 		});
 		
 		JLabel vPosicao8 = new JLabel();
-		vPosicao8.setBounds(new Rectangle(134, 102, 190, 170));
+		vPosicao8.setBounds(new Rectangle(134, 102, 170, 170));
 		vPosicao8.setIcon(iconeAzul);				
 		vPosicao8.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -235,6 +235,7 @@ public class InterfaceJogo {
 				notificar(mensagem);
 			} else {
 				System.out.println("[Teste] destino selecionada");
+				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada(); // desmarco origem como selecionada
 				// atualizar o estado do tabuleiro
 				atorJogador.atualizarEstado();
@@ -245,6 +246,7 @@ public class InterfaceJogo {
 				notificar(mensagem);
 			} else {
 				System.out.println("[Teste] origem selecionada");
+				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada(); // marco origem como selecionada
 			}
 		}

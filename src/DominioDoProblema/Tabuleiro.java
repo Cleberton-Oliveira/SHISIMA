@@ -2,13 +2,13 @@
 
 public class Tabuleiro {
 	
-	protected Jogador jogador1;
-	protected Jogador jogador2;
+	protected Jogador jogadorLocal;
+	protected Jogador jogadorRemoto;
 	protected Jogador daVez;
 	protected Matriz matriz;
 	protected Estado estado;
-	protected boolean conectado = false;
 	protected boolean partidaAndamento = false;
+	protected boolean conectado = false;
 
 	public Tabuleiro() {
 		matriz = new Matriz();
@@ -39,18 +39,6 @@ public class Tabuleiro {
 		partidaAndamento = valor;
 	}
 	
-	public boolean permitidoConectar() {
-		return !conectado;
-	}
-	
-	public boolean permitidoDesconectar() {
-		return conectado;
-	}
-
-	public boolean permitidoIniciarPartida() {
-		return !partidaAndamento;
-	}
-
 	public boolean obterPartidaEmAndamento() {
 		return this.partidaAndamento;
 	}
@@ -68,40 +56,44 @@ public class Tabuleiro {
 		System.out.println("[iniciarNovaPartida] 2");
 		reiniciarTabuleiro();
 		
-		this.jogador1 = new Jogador();
-		this.jogador2 = new Jogador();
+		this.jogadorLocal = new Jogador();
+		this.jogadorRemoto = new Jogador();
 		
-		this.jogador2.definirNome(nomeAdversario);
+		this.jogadorRemoto.definirNome(nomeAdversario);
 		
 		if (ordem == 1) {
-			this.jogador1.definirComoPrimeiro();
-			definirDaVez(jogador1);
-			matriz.definirOcupantes(jogador1, jogador2);
+			this.jogadorLocal.definirComoPrimeiro();
+			definirDaVez(jogadorLocal);
+			matriz.definirOcupantes(jogadorLocal, jogadorRemoto);
 		} else {
-			this.jogador2.definirComoPrimeiro();
-			definirDaVez(jogador2);
-			matriz.definirOcupantes(jogador2, jogador1);
+			this.jogadorRemoto.definirComoPrimeiro();
+			definirDaVez(jogadorRemoto);
+			matriz.definirOcupantes(jogadorRemoto, jogadorLocal);
 		}
 		System.out.println("[iniciarNovaPartida] 3");
 		definirPartidaAndamento(true);
 	}
 	
 	public boolean verificarTurno() {
-		return obterDaVez().informarCor() == jogador1.informarCor();
+		return obterDaVez().informarCor() == jogadorLocal.informarCor();
 	}
 	
 	public boolean verificarPosicaoVazia(int linha, int coluna) {
 		return matriz.posicoes[linha][coluna].ocupante == null;
 	}
 	
-	// TODO CORRIGIR
 	private boolean verificarLanceValido(Lance lance) {
 		int valorLinha = lance.linhaOrigem - lance.linhaDestino;
 		int valorColuna = lance.colunaOrigem - lance.colunaDestino;
-		boolean linhaValida = valorLinha == 1 || valorLinha == -1;
-		boolean colunaValida = valorColuna == 1 || valorColuna == -1;
-
-		return linhaValida && colunaValida;
+		
+		if((lance.linhaOrigem == 1 && lance.colunaOrigem == 1) || (lance.linhaDestino == 1 && lance.colunaDestino == 1)) {
+			return true;
+		} else if((valorLinha == 1 && valorColuna == 0) || (valorLinha == -1 && valorColuna == 0)){
+			return true;
+		}else if((valorColuna == 1 && valorLinha == 0) || (valorColuna == -1 && valorLinha == 0)){
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean verificarPosicaoOrigemValida(int linha, int coluna) {
@@ -145,10 +137,10 @@ public class Tabuleiro {
 	
 	private void trocarTurno() {
 		Jogador daVez = obterDaVez();
-		if (daVez.informarCor() == jogador1.informarCor()) {
-			definirDaVez(jogador2);
+		if (daVez.informarCor() == jogadorLocal.informarCor()) {
+			definirDaVez(jogadorRemoto);
 		} else {
-			definirDaVez(jogador1);
+			definirDaVez(jogadorLocal);
 		}
 	}
 
