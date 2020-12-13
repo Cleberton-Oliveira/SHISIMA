@@ -27,27 +27,6 @@ public class Matriz {
 		posicoes[2][2].ocupante = segundo;
 	}
 	
-	public void testePrintMatriz() {
-		System.out.println("[Matriz] testePrintMatriz");
-		for(int i = 0; i < 3; i++){
-		    for(int j = 0; j < 3; j++){
-		    	System.out.print(i);
-		    	System.out.print(",");
-		    	System.out.print(j);
-		    	System.out.print(": ");
-		    	if (posicoes[i][j].ocupante != null) {
-		    		if (posicoes[i][j].ocupante.informarCor() == 0) {
-			    		System.out.println("vermelho");
-		    		} else {
-			    		System.out.println("azul");
-		    		}
-		    	} else {
-		    		System.out.println(posicoes[i][j].ocupante);
-		    	}
-		    }
-		}
-	}
-	
 	private Jogador obterAlinhamentoCentral() {
 		int i = 1;
 		return this.posicoes[i][i].ocupante;
@@ -58,14 +37,15 @@ public class Matriz {
 		boolean venceuNaHorizontal = false;
 		Jogador aux1 = new Jogador();
 		Jogador aux2 = new Jogador();
+		Jogador aux3 = obterAlinhamentoCentral();
 		
 		aux1 = posicoes[i][i-i].ocupante;
 		aux2 = posicoes[i][i+i].ocupante;
 		
 		if (aux1 != null && aux2 != null) {
-			venceuNaHorizontal = aux1.informarCor() == aux2.informarCor();
+			venceuNaHorizontal = aux1.informarCor() == aux2.informarCor() && aux1.informarCor() == aux3.informarCor();
 		}
-		
+
 		return venceuNaHorizontal;
 	}
 	
@@ -74,14 +54,13 @@ public class Matriz {
 		boolean venceuNaVertical = false;
 		Jogador aux1 = new Jogador();
 		Jogador aux2 = new Jogador();
+		Jogador aux3 = obterAlinhamentoCentral();
 		
 		aux1 = posicoes[i-i][i].ocupante;
 		aux2 = posicoes[i+i][i].ocupante;
 		if (aux1 != null && aux2 != null) {
-			venceuNaVertical = aux1.informarCor() == aux2.informarCor();
+			venceuNaVertical = aux1.informarCor() == aux2.informarCor() && aux1.informarCor() == aux3.informarCor();
 		}
-
-		
 		
 		return venceuNaVertical;
 	}
@@ -91,19 +70,20 @@ public class Matriz {
 		boolean venceuNaDiagonal = false;
 		Jogador aux1 = new Jogador();
 		Jogador aux2 = new Jogador();
-		
+		Jogador aux3 = obterAlinhamentoCentral();
+
 		aux1 = posicoes[i-i][i-i].ocupante;
 		aux2 = posicoes[i+i][i+i].ocupante;
 		
 		if (aux1 != null && aux2 != null) {
-			venceuNaDiagonal = aux1.informarCor() == aux2.informarCor();
+			venceuNaDiagonal = aux1.informarCor() == aux2.informarCor() && aux1.informarCor() == aux3.informarCor();
 		}
 		
 		if (!venceuNaDiagonal) {
 			aux1 = posicoes[i-i][i+i].ocupante;
 			aux2 = posicoes[i+i][i-i].ocupante;
 			if (aux1 != null && aux2 != null) {
-				venceuNaDiagonal = aux1.informarCor() == aux2.informarCor();
+				venceuNaDiagonal = aux1.informarCor() == aux2.informarCor() && aux1.informarCor() == aux3.informarCor();
 			}
 		}
 		
@@ -114,7 +94,7 @@ public class Matriz {
 		boolean venceu = false;
 		Jogador aux = obterAlinhamentoCentral();
 		if (aux != null) {
-			if(aux.informarCor() == daVez.informarCor()) { // verifica se o daVez esta no centro
+			if(aux.informarCor() == daVez.informarCor()) {
 				venceu = obterAlinhamentoHorizontal();
 				if (!venceu) {
 					venceu = obterAlinhamentoVertical();

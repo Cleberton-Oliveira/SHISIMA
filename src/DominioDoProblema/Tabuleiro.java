@@ -125,8 +125,8 @@ public class Tabuleiro {
 	
 	public void atualizarEstado() {
 		Lance lance = this.estado.obterLance();
-		matriz.posicoes[lance.linhaOrigem][lance.colunaOrigem].ocupante = null; // desalocar origem
-		matriz.posicoes[lance.linhaDestino][lance.colunaDestino].ocupante = obterDaVez(); // alocar destino
+		matriz.posicoes[lance.linhaOrigem][lance.colunaOrigem].ocupante = null;
+		matriz.posicoes[lance.linhaDestino][lance.colunaDestino].ocupante = obterDaVez();
 	}
 	
 	public void trocarTurno() {
@@ -148,8 +148,7 @@ public class Tabuleiro {
 	
 	public void encerrarPartida() {
 		definirPartidaAndamento(false);
-		iniciarTabuleiro(); // here
+		iniciarTabuleiro();
 	}
 
-	
 }
