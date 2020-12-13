@@ -9,7 +9,6 @@ public class Matriz {
 	}
 	
 	public void iniciar() {
-//		System.out.println("[Matriz] iniciar");
 		this.posicoes = new Posicao[3][3];
 		for(int i = 0; i < 3; i++){
 		    for(int j = 0; j < 3; j++){
@@ -26,7 +25,6 @@ public class Matriz {
 		posicoes[2][0].ocupante = segundo;
 		posicoes[2][1].ocupante = segundo;
 		posicoes[2][2].ocupante = segundo;
-//		System.out.println("[Matriz] definirOcupantes 2");
 	}
 	
 	public void testePrintMatriz() {
@@ -51,7 +49,7 @@ public class Matriz {
 	}
 	
 	private Jogador obterAlinhamentoCentral() {
-		int i = 0;
+		int i = 1;
 		return this.posicoes[i][i].ocupante;
 	}
 	
@@ -113,13 +111,10 @@ public class Matriz {
 	}
 	
 	public boolean avaliarTresPosicoesAlinhadas(Jogador daVez) {
-		System.out.println("avaliarTresPosicoesAlinhadas");
 		boolean venceu = false;
 		Jogador aux = obterAlinhamentoCentral();
 		if (aux != null) {
-			System.out.println("aux != null");
 			if(aux.informarCor() == daVez.informarCor()) { // verifica se o daVez esta no centro
-				System.out.println("aux.informarCor() == daVez.informarCor()");
 				venceu = obterAlinhamentoHorizontal();
 				if (!venceu) {
 					venceu = obterAlinhamentoVertical();

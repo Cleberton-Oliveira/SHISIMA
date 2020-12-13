@@ -108,10 +108,9 @@ public class InterfaceJogador {
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
-			// verificar o vencedors
 			boolean vencedor = this.tabuleiro.verificarVencedor();
 			if (vencedor) {
-				System.out.println("*******************VENCI********************************");
+				System.out.println("*LOCAL VENCEU*");
 			}
 			enviarJogada(lance); 
 		}
@@ -123,25 +122,23 @@ public class InterfaceJogador {
 	}
 	
 	public void atualizarEstado() {
-		this.tabuleiro.atualizarEstado(); // aqui aloca e desaloca e AQUI TROCA O TURNO
+		this.tabuleiro.atualizarEstado(); // aqui aloca e desaloca
 		boolean vencedor = this.tabuleiro.verificarVencedor();
-		if (vencedor) {
-			System.out.println("*******************VENCEU********************************");
-		}
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = estado.obterLance();
 		this.iJogo.atualizarEstado(lance);
+		if (vencedor) {
+			System.out.println("*REMOTO VENCEU*");
+		}
 		this.tabuleiro.trocarTurno();
 
 	}
 	
 	public void tratarReceberJogada(Jogada jogada) {
-//		System.out.println("[tratarReceberJogada] 1");
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = (Lance) jogada;
 		estado.definirLance(lance);
-//		System.out.println("[tratarReceberJogada] 2");
-		//	 como esta o tabuleiro aqui nesse momento?
+
 		atualizarEstado();
 		
 	}

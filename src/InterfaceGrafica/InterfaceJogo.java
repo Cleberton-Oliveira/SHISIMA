@@ -240,21 +240,16 @@ public class InterfaceJogo {
 	}
 	
 	public void click(int linha, int coluna) {
-//		System.out.println("Usuario click");
 		boolean origemSelecionada = obterPosOrigemSelecionada();
 		if (origemSelecionada) {
 			boolean posValida = atorJogador.validarClickDestino(linha, coluna);
 			if (posValida) {
-//				System.out.println("[Teste] destino selecionada");
-//				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada();
 				atorJogador.atualizarEstado();
 			}
 		} else {
 			boolean posValida = atorJogador.validarClickOrigem(linha, coluna);
 			if (posValida) {
-//				System.out.println("[Teste] origem selecionada");
-//				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
 				inverterValorPosOrigemSelecionada();
 			}
 		}
@@ -341,7 +336,5 @@ public class InterfaceJogo {
 	public void notificar(String notificacao) {
 		JOptionPane.showMessageDialog(null, notificacao);
 	}
-	
-	
 	
 }
