@@ -91,7 +91,8 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	@Override
 	public void receberJogada(Jogada jogada) {
 		// TODO Auto-generated method stub
-		System.out.println("[receberJogada] ##################################");
+		System.out.println("[receberJogada]");
+		atorJogador.tratarReceberJogada(jogada);
 
 	}
 	

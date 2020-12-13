@@ -4,6 +4,7 @@ import DominioDoProblema.Estado;
 import DominioDoProblema.Lance;
 import DominioDoProblema.Tabuleiro;
 import Rede.InterfaceNetgamesServer;
+import br.ufsc.inf.leobr.cliente.Jogada;
 
 public class InterfaceJogador {
 	
@@ -90,17 +91,18 @@ public class InterfaceJogador {
 			} else {
 				boolean posValida = tabuleiro.verificarPosicaoOrigemValida(linha, coluna);
 				if (!posValida) {
-					return "Posição inválida!";
+					return "Posição de origem inválida!";
 				}
 			}
 		}
 		return "[Teste] OK";
 	}
 	
+	// TODO verficar o vencedor
 	public String lidarComClickDestino(int linha, int coluna) {
 		boolean posValida = tabuleiro.verificarPosicaoDestinoValida(linha, coluna);
 		if (!posValida) {
-			return "Posição inválida!";
+			return "Posição de destino inválida!";
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
@@ -111,6 +113,20 @@ public class InterfaceJogador {
 	
 	public void enviarJogada(Lance lance) {
 		this.ngServer.enviarJogada(lance);
+	}
+	
+	public void atualizarEstado() {
+		this.tabuleiro.atualizarEstado();
+	}
+	
+	public void tratarReceberJogada(Jogada jogada) {
+		System.out.println("[tratarReceberJogada] 1");
+		Estado estado = this.tabuleiro.obterEstado();
+		Lance lance = (Lance) jogada;
+		estado.definirLance(lance);
+		System.out.println("[tratarReceberJogada] 2");
+		atualizarEstado();
+		
 	}
 	
 

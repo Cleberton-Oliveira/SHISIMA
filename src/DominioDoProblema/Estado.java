@@ -10,7 +10,7 @@ public class Estado {
 	}
 	
 	public void definirLance(Lance lance) {
-		
+		this.lance = lance;
 	}
 	
 	public Lance obterLance() {

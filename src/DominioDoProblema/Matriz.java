@@ -28,6 +28,25 @@ public class Matriz {
 		    }
 		}
 	}
+	
+	public void testePrintMatriz() {
+		System.out.println("[Matriz] testePrintMatriz");
+		for(int i = 0; i < 3; i++){
+		    for(int j = 0; j < 3; j++){
+		    	System.out.print(i);
+		    	System.out.print(j);
+		    	if (posicoes[i][j].ocupante != null) {
+		    		if (posicoes[i][j].ocupante.informarCor() == 0) {
+			    		System.out.println("vermelho");
+		    		} else {
+			    		System.out.println("azul");
+		    		}
+		    	} else {
+		    		System.out.println(posicoes[i][j].ocupante);
+		    	}
+		    }
+		}
+	}
 
 	
 	public boolean avaliarTresPosicoesAlinhadas() {

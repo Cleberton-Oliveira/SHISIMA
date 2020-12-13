@@ -235,7 +235,9 @@ public class InterfaceJogo {
 				notificar(mensagem);
 			} else {
 				System.out.println("[Teste] destino selecionada");
-				inverterValorPosOrigemSelecionada(); // marco origem como selecionada
+				inverterValorPosOrigemSelecionada(); // desmarco origem como selecionada
+				// atualizar o estado do tabuleiro
+				atorJogador.atualizarEstado();
 			}
 		} else {
 			String mensagem = atorJogador.lidarComClickOrigem(linha, coluna);
