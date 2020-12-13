@@ -10,7 +10,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import DominioDoProblema.Jogador;
 import DominioDoProblema.Lance;
+import DominioDoProblema.Posicao;
 
 import javax.swing.JMenu;
 import javax.swing.AbstractAction;
@@ -28,6 +30,7 @@ public class InterfaceJogo {
 	private final Action actionIniciarPartida = new SwingActionIniciarPartida();
 	private InterfaceJogador atorJogador;
 	private boolean posOrigemSelecionada = false;
+	private JLabel[][] JLabels;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -117,12 +120,9 @@ public class InterfaceJogo {
 
 		// TABULEIRO
 		Icon iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
-		Icon iconeVazioClicado = new ImageIcon(getClass().getResource("vazio-clicavel.png"));
 		Icon iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
 		Icon iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
 		Icon template = new ImageIcon(getClass().getResource("template.png"));
-		Icon iconeAzulClicado = new ImageIcon(getClass().getResource("azul-clicado.png"));
-		Icon iconeVermelhoClicado = new ImageIcon(getClass().getResource("vermelho-clicado.png"));
 		
 		JLabel background = new JLabel();
 		background.setBounds(new Rectangle(00, 00, 600, 600));
@@ -143,7 +143,6 @@ public class InterfaceJogo {
 		vPosicao1.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(0,1);
-				vPosicao1.setIcon(iconeAzulClicado);
 			}
 		});
 	
@@ -153,7 +152,6 @@ public class InterfaceJogo {
 		vPosicao2.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(0,2);
-				vPosicao2.setIcon(iconeAzulClicado);
 			}
 		});
 		JLabel vPosicao3 = new JLabel();
@@ -162,7 +160,6 @@ public class InterfaceJogo {
 		vPosicao3.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(1,2);
-				vPosicao3.setIcon(iconeVazioClicado);
 			}
 		});
 	
@@ -172,7 +169,6 @@ public class InterfaceJogo {
 		vPosicao4.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(2,2);
-				vPosicao4.setIcon(iconeVermelhoClicado);
 			}
 		});
 		JLabel vPosicao5 = new JLabel();
@@ -181,7 +177,6 @@ public class InterfaceJogo {
 		vPosicao5.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(2,1);
-				vPosicao5.setIcon(iconeVermelhoClicado);
 			}
 		});
 		
@@ -191,7 +186,6 @@ public class InterfaceJogo {
 		vPosicao6.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(2,0);
-				vPosicao6.setIcon(iconeVermelhoClicado);
 			}
 		});
 		JLabel vPosicao7 = new JLabel();
@@ -208,22 +202,41 @@ public class InterfaceJogo {
 		vPosicao8.setIcon(iconeAzul);				
 		vPosicao8.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao8.setIcon(iconeAzulClicado);
 				click(0,0);
 			}
 		});
 		
-		frame.getContentPane().add(vPosicao0);
-		frame.getContentPane().add(vPosicao1);
-		frame.getContentPane().add(vPosicao2);
-		frame.getContentPane().add(vPosicao3);
-		frame.getContentPane().add(vPosicao4);
-		frame.getContentPane().add(vPosicao5);
-		frame.getContentPane().add(vPosicao6);
-		frame.getContentPane().add(vPosicao7);
-		frame.getContentPane().add(vPosicao8);
+		JLabels = new JLabel[3][3];
+		for(int i = 0; i < 3; i++){
+		    for(int j = 0; j < 3; j++){
+		    	JLabels[i][j] = new JLabel();
+		    }
+		}
+		
+		JLabels[0][0] = vPosicao8;
+		JLabels[0][1] = vPosicao1;
+		JLabels[0][2] = vPosicao2;
+		
+		JLabels[1][0] = vPosicao7;
+		JLabels[1][1] = vPosicao0;
+		JLabels[1][2] = vPosicao3;
+		
+		JLabels[2][0] = vPosicao6;
+		JLabels[2][1] = vPosicao5;
+		JLabels[2][2] = vPosicao4;
+		
+		
+		frame.getContentPane().add(JLabels[0][0]);
+		frame.getContentPane().add(JLabels[0][1]);
+		frame.getContentPane().add(JLabels[0][2]);
+		frame.getContentPane().add(JLabels[1][0]);
+		frame.getContentPane().add(JLabels[1][1]);
+		frame.getContentPane().add(JLabels[1][2]);
+		frame.getContentPane().add(JLabels[2][0]);
+		frame.getContentPane().add(JLabels[2][1]);
+		frame.getContentPane().add(JLabels[2][2]);
 		frame.getContentPane().add(background);
-
+		
 	}
 	
 	public void click(int linha, int coluna) {
@@ -234,8 +247,7 @@ public class InterfaceJogo {
 			if (posValida) {
 				System.out.println("[Teste] destino selecionada");
 				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
-				inverterValorPosOrigemSelecionada(); // desmarco origem como selecionada
-				// atualizar o estado do tabuleiro
+				inverterValorPosOrigemSelecionada();
 				atorJogador.atualizarEstado();
 			}
 		} else {
@@ -243,9 +255,25 @@ public class InterfaceJogo {
 			if (posValida) {
 				System.out.println("[Teste] origem selecionada");
 				System.out.printf("linha: %d colunha: %d\n", linha, coluna);
-				inverterValorPosOrigemSelecionada(); // marco origem como selecionada
+				inverterValorPosOrigemSelecionada();
 			}
 		}
+	}
+	
+	public void atualizarEstado(Lance lance) {
+		int linhaOrigem = lance.obterLinhaOrigem();
+		int colunaOrigem = lance.obterColunhaOrigem();
+		int linhaDestino = lance.obterLinhaDestino();
+		int colunaDestino = lance.obterColunaDestino();
+		
+		JLabel jLabelOrigem = JLabels[linhaOrigem][colunaOrigem];
+		JLabel jLabelDestino = JLabels[linhaDestino][colunaDestino];
+		
+		Icon iconeOrigem = jLabelOrigem.getIcon();
+		Icon iconeDestino = jLabelDestino.getIcon();
+
+		jLabelOrigem.setIcon(iconeDestino);
+		jLabelDestino.setIcon(iconeOrigem);
 	}
 
 	

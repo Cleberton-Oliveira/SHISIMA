@@ -28,5 +28,21 @@ public class Lance implements Jogada {
 	public void definirColunaDestino(int valor) {
 		this.colunaDestino = valor;
 	}
+	
+	public int obterLinhaOrigem() {
+		return this.linhaOrigem;
+	}
+	
+	public int obterColunhaOrigem() {
+		return this.colunaOrigem;
+	}
+	
+	public int obterLinhaDestino() {
+		return this.linhaDestino;
+	}
+	
+	public int obterColunaDestino() {
+		return this.colunaDestino;
+	}
 
 }

@@ -1,6 +1,7 @@
 package InterfaceGrafica;
 
 import DominioDoProblema.Estado;
+import DominioDoProblema.Jogador;
 import DominioDoProblema.Lance;
 import DominioDoProblema.Tabuleiro;
 import Rede.InterfaceNetgamesServer;
@@ -107,7 +108,7 @@ public class InterfaceJogador {
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
-			enviarJogada(lance);
+			enviarJogada(lance); // HERE
 		}
 		return posValida;
 	}
@@ -117,7 +118,10 @@ public class InterfaceJogador {
 	}
 	
 	public void atualizarEstado() {
-		this.tabuleiro.atualizarEstado();
+		this.tabuleiro.atualizarEstado(); // AQUI TROCA O TURNO
+		Estado estado = this.tabuleiro.obterEstado();
+		Lance lance = estado.obterLance();
+		this.iJogo.atualizarEstado(lance);
 	}
 	
 	public void tratarReceberJogada(Jogada jogada) {
@@ -126,6 +130,8 @@ public class InterfaceJogador {
 		Lance lance = (Lance) jogada;
 		estado.definirLance(lance);
 		System.out.println("[tratarReceberJogada] 2");
+		
+		Jogador jogador = this.tabuleiro.obterDaVez();
 		atualizarEstado();
 		
 	}
