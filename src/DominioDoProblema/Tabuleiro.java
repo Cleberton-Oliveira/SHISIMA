@@ -48,12 +48,12 @@ public class Tabuleiro {
 	}
 	
 	public void iniciarTabuleiro() {
-		System.out.println("[Tabuleiro] reiniciarTabuleiro");
+//		System.out.println("[Tabuleiro] reiniciarTabuleiro");
 		matriz.iniciar();
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
-		System.out.println("[iniciarNovaPartida] 2");
+//		System.out.println("[iniciarNovaPartida] 2");
 		iniciarTabuleiro();
 		
 		this.jogadorLocal = new Jogador();
@@ -70,7 +70,7 @@ public class Tabuleiro {
 			definirDaVez(jogadorRemoto);
 			matriz.definirOcupantes(jogadorRemoto, jogadorLocal);
 		}
-		System.out.println("[iniciarNovaPartida] 3");
+//		System.out.println("[iniciarNovaPartida] 3");
 		definirPartidaAndamento(true);
 	}
 	
@@ -116,7 +116,7 @@ public class Tabuleiro {
 		boolean valida = false;
 		boolean vazia = verificarPosicaoVazia(linha, coluna);
 		if (vazia) {
-			System.out.println("[verificarPosicaoDestinoValida] vazia");
+//			System.out.println("[verificarPosicaoDestinoValida] vazia");
 			Lance lance = this.estado.obterLance();
 			lance.definirLinhaDestino(linha);
 			lance.definirColunaDestino(coluna);
@@ -131,17 +131,21 @@ public class Tabuleiro {
 		Lance lance = this.estado.obterLance();
 		matriz.posicoes[lance.linhaOrigem][lance.colunaOrigem].ocupante = null; // desalocar origem
 		matriz.posicoes[lance.linhaDestino][lance.colunaDestino].ocupante = obterDaVez(); // alocar destino
-		trocarTurno();
-		matriz.testePrintMatriz(); // TESTE
+//		trocarTurno();
+		// matriz.testePrintMatriz(); // TESTE
 	}
 	
-	private void trocarTurno() {
+	public void trocarTurno() {
 		Jogador daVez = obterDaVez();
 		if (daVez.informarCor() == jogadorLocal.informarCor()) {
 			definirDaVez(jogadorRemoto);
 		} else {
 			definirDaVez(jogadorLocal);
 		}
+	}
+	
+	public boolean verificarVencedor() {
+		return this.matriz.avaliarTresPosicoesAlinhadas(obterDaVez());
 	}
 
 	

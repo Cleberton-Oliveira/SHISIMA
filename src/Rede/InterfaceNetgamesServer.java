@@ -41,7 +41,6 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 			}
 			this.definirConectado(true);
 			return "Sucesso: conectado a Netgames Server";
-		
 	}
 
 	private void definirConectado(boolean valor) {
@@ -73,33 +72,24 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	public void iniciarNovaPartida(Integer posicao) {
 		JOptionPane.showMessageDialog(null, "[Teste] Netgames enviou partida iniciada");
 		String nomeAdversario = this.proxy.obterNomeAdversario(posicao);
-		System.out.println("[iniciarNovaPartida] 0");
 		this.atorJogador.iniciarNovaPartida(posicao, nomeAdversario);
 	}
 
 	@Override
-	public void finalizarPartidaComErro(String message) {
-		// TODO Auto-generated method stub
-		
+	public void finalizarPartidaComErro(String message) {		
 	}
 
 	@Override
 	public void receberMensagem(String msg) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void receberJogada(Jogada jogada) {
-		// TODO Auto-generated method stub
-		System.out.println("[receberJogada]");
 		atorJogador.tratarReceberJogada(jogada);
-
 	}
 	
 	public void enviarJogada(Jogada jogada) {
 		try {
-			System.out.println("[enviarJogada] ******************************");
-
 			this.proxy.enviaJogada(jogada);
 		} catch (NaoJogandoException e) {
 			// TODO Auto-generated catch block
@@ -108,28 +98,18 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	}
 
 	@Override
-	public void tratarConexaoPerdida() {
-		// TODO Auto-generated method stub
-		
+	public void tratarConexaoPerdida() {		
 	}
 
 	@Override
-	public void tratarPartidaNaoIniciada(String message) {
-		// TODO Auto-generated method stub
-		
+	public void tratarPartidaNaoIniciada(String message) {		
 	}
 
 	public boolean informarConectado() {
-		// TODO Auto-generated method stub
 		return this.conectado;
 	}
 
-	public void encerrarPartida() {
-		// TODO Auto-generated method stub
-		
+	public void encerrarPartida() {		
 	}
-	
-	
-	
 
 }

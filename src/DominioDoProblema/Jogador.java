@@ -10,7 +10,6 @@ public class Jogador {
 	public Jogador() {}
 	
 	public void definirNome(String nome) {
-		System.out.println("[Jogador] definirNome");
 		this.nome = nome;
 	}
 	

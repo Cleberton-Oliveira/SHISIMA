@@ -77,7 +77,7 @@ public class InterfaceJogador {
 	}
 	
 	public void iniciarNovaPartida(Integer ordem, String nomeAdversario) {
-		System.out.println("[iniciarNovaPartida] 1");
+//		System.out.println("[iniciarNovaPartida] 1");
 		this.tabuleiro.iniciarNovaPartida(ordem,nomeAdversario);
 	}
 	
@@ -108,7 +108,12 @@ public class InterfaceJogador {
 		} else {
 			Estado estado = this.tabuleiro.obterEstado();
 			Lance lance = estado.obterLance();
-			enviarJogada(lance); // HERE
+			// verificar o vencedors
+			boolean vencedor = this.tabuleiro.verificarVencedor();
+			if (vencedor) {
+				System.out.println("*******************VENCI********************************");
+			}
+			enviarJogada(lance); 
 		}
 		return posValida;
 	}
@@ -118,20 +123,25 @@ public class InterfaceJogador {
 	}
 	
 	public void atualizarEstado() {
-		this.tabuleiro.atualizarEstado(); // AQUI TROCA O TURNO
+		this.tabuleiro.atualizarEstado(); // aqui aloca e desaloca e AQUI TROCA O TURNO
+		boolean vencedor = this.tabuleiro.verificarVencedor();
+		if (vencedor) {
+			System.out.println("*******************VENCEU********************************");
+		}
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = estado.obterLance();
 		this.iJogo.atualizarEstado(lance);
+		this.tabuleiro.trocarTurno();
+
 	}
 	
 	public void tratarReceberJogada(Jogada jogada) {
-		System.out.println("[tratarReceberJogada] 1");
+//		System.out.println("[tratarReceberJogada] 1");
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = (Lance) jogada;
 		estado.definirLance(lance);
-		System.out.println("[tratarReceberJogada] 2");
-		
-		Jogador jogador = this.tabuleiro.obterDaVez();
+//		System.out.println("[tratarReceberJogada] 2");
+		//	 como esta o tabuleiro aqui nesse momento?
 		atualizarEstado();
 		
 	}
