@@ -1,9 +1,11 @@
 package DominioDoProblema;
 
+import InterfaceGrafica.InterfaceJogo;
+
 public class Matriz {
 	
 	protected Posicao[][] posicoes;
-	
+	InterfaceJogo interfaceJogo;
 	public Matriz() {
 		this.iniciar();
 	}
@@ -27,6 +29,22 @@ public class Matriz {
 		    	posicoes[i][j] = new Posicao();
 		    }
 		}
+	}
+	
+	public void atualizaMatriz() {
+		for(int i = 0; i < 3; i++){
+		    for(int j = 0; j < 3; j++){
+		    	System.out.print(i);
+		    	System.out.print(j);
+		    	if (posicoes[i][j].ocupante != null) {
+		    		interfaceJogo.addSemPeca(i,j);
+		    	}else if (posicoes[i][j].ocupante.informarCor() == 0) {
+		    			interfaceJogo.addVermelho(i,j);
+		    	}else{
+		    		interfaceJogo.addAzul(i,j);
+	    		}
+		    }
+		}   
 	}
 	
 	public void testePrintMatriz() {

@@ -96,12 +96,35 @@ public class Tabuleiro {
 	
 	// TODO CORRIGIR
 	private boolean verificarLanceValido(Lance lance) {
+		boolean logico = false;
 		int valorLinha = lance.linhaOrigem - lance.linhaDestino;
 		int valorColuna = lance.colunaOrigem - lance.colunaDestino;
-		boolean linhaValida = valorLinha == 1 || valorLinha == -1;
-		boolean colunaValida = valorColuna == 1 || valorColuna == -1;
+		
+		System.out.println("================================");
+		System.out.println("Linha destino : " + lance.linhaDestino);
+		System.out.println("Coluna destino : " + lance.colunaDestino);
+		System.out.println("================================");
+		System.out.println("Linha Origem : " + lance.linhaOrigem);
+		System.out.println("Coluna Origem : " + lance.colunaOrigem);
+		System.out.println("================================");
+		System.out.println("valorLinha: " + valorLinha);
+		System.out.println("valorColuna: " + valorColuna);
+		
+		if (lance.linhaOrigem == 1 && lance.colunaOrigem == 1){
+			logico =  true;
+		}else if(  lance.linhaDestino == 1 && lance.colunaDestino == 1) {  
+			logico =  true;
+		}else if (valorLinha == 1 && valorColuna == 0) {
+			logico =  true;
+		}else if(valorLinha == -1 && valorColuna == 0) {
+			logico =  true;
+		}else if(valorColuna == 1 && valorLinha == 0) {
+			logico =  true;
+		}else if(valorColuna == -1 && valorLinha == 0) {
+			logico =  true;
+		}
 
-		return linhaValida && colunaValida;
+		return logico;
 	}
 	
 	public boolean verificarPosicaoOrigemValida(int linha, int coluna) {
@@ -141,6 +164,7 @@ public class Tabuleiro {
 		matriz.posicoes[lance.linhaDestino][lance.colunaDestino].ocupante = obterDaVez(); // alocar destino
 		trocarTurno();
 		matriz.testePrintMatriz(); // TESTE
+		matriz.atualizaMatriz();
 	}
 	
 	private void trocarTurno() {

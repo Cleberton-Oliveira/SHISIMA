@@ -29,6 +29,27 @@ public class InterfaceJogo {
 	private InterfaceJogador atorJogador;
 	private boolean posOrigemSelecionada = false;
 
+	
+	// TABULEIRO
+	Icon iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
+	Icon iconeVazioClicado = new ImageIcon(getClass().getResource("vazio-clicavel.png"));
+	Icon iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
+	Icon iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
+	Icon template = new ImageIcon(getClass().getResource("template.png"));
+	Icon iconeAzulClicado = new ImageIcon(getClass().getResource("azul-clicado.png"));
+	Icon iconeVermelhoClicado = new ImageIcon(getClass().getResource("vermelho-clicado.png"));
+	
+	
+	JLabel vPosicao11 = new JLabel();
+	JLabel vPosicao01 = new JLabel();
+	JLabel vPosicao02 = new JLabel();
+	JLabel vPosicao12 = new JLabel();
+	JLabel vPosicao22 = new JLabel();
+	JLabel vPosicao21 = new JLabel();
+	JLabel vPosicao20 = new JLabel();
+	JLabel vPosicao10 = new JLabel();
+	JLabel vPosicao00 = new JLabel();
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -115,120 +136,114 @@ public class InterfaceJogo {
 		frame.getContentPane().add(botaoDesconectar);
 		frame.getContentPane().add(botaoIniciar);
 
-		// TABULEIRO
-		Icon iconeVazio = new ImageIcon(getClass().getResource("vazio.png"));
-		Icon iconeVazioClicado = new ImageIcon(getClass().getResource("vazio-clicavel.png"));
-		Icon iconeAzul = new ImageIcon(getClass().getResource("azul.png"));
-		Icon iconeVermelho = new ImageIcon(getClass().getResource("vermelho.png"));
-		Icon template = new ImageIcon(getClass().getResource("template.png"));
-		Icon iconeAzulClicado = new ImageIcon(getClass().getResource("azul-clicado.png"));
-		Icon iconeVermelhoClicado = new ImageIcon(getClass().getResource("vermelho-clicado.png"));
+
 		
 		JLabel background = new JLabel();
 		background.setBounds(new Rectangle(00, 00, 600, 600));
 		background.setIcon(template);				
 		
-		JLabel vPosicao0 = new JLabel();
-		vPosicao0.setBounds(new Rectangle(274, 242, 190, 170));
-		vPosicao0.setIcon(iconeVazio);				
-		vPosicao0.addMouseListener(new java.awt.event.MouseAdapter() {
+		
+		vPosicao11.setBounds(new Rectangle(274, 242, 190, 170));
+		vPosicao11.setIcon(iconeVazio);				
+		vPosicao11.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(1,1);
 			}
 		});
 		
-		JLabel vPosicao1 = new JLabel();
-		vPosicao1.setBounds(new Rectangle(274, 44, 190, 170));
-		vPosicao1.setIcon(iconeAzul);				
-		vPosicao1.addMouseListener(new java.awt.event.MouseAdapter() {
+	
+		vPosicao01.setBounds(new Rectangle(274, 44, 190, 170));
+		vPosicao01.setIcon(iconeAzul);				
+		vPosicao01.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(0,1);
-				vPosicao1.setIcon(iconeAzulClicado);
+				vPosicao01.setIcon(iconeAzulClicado);
 			}
 		});
 	
-		JLabel vPosicao2 = new JLabel();
-		vPosicao2.setBounds(new Rectangle(414, 102, 190, 170));
-		vPosicao2.setIcon(iconeAzul);				
-		vPosicao2.addMouseListener(new java.awt.event.MouseAdapter() {
+
+		vPosicao02.setBounds(new Rectangle(414, 102, 190, 170));
+		vPosicao02.setIcon(iconeAzul);				
+		vPosicao02.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(0,2);
-				vPosicao2.setIcon(iconeAzulClicado);
-			}
-		});
-		JLabel vPosicao3 = new JLabel();
-		vPosicao3.setBounds(new Rectangle(472, 242, 190, 170));
-		vPosicao3.setIcon(iconeVazio);				
-		vPosicao3.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent e) {
-				click(1,2);
-				vPosicao3.setIcon(iconeVazioClicado);
+				vPosicao02.setIcon(iconeAzulClicado);
 			}
 		});
 	
-		JLabel vPosicao4 = new JLabel();
-		vPosicao4.setBounds(new Rectangle(414, 380, 190, 170));
-		vPosicao4.setIcon(iconeVermelho);				
-		vPosicao4.addMouseListener(new java.awt.event.MouseAdapter() {
+		vPosicao12.setBounds(new Rectangle(472, 242, 190, 170));
+		vPosicao12.setIcon(iconeVazio);				
+		vPosicao12.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				click(2,2);
-				vPosicao4.setIcon(iconeVermelhoClicado);
+				click(1,2);
+				vPosicao12.setIcon(iconeVazioClicado);
 			}
 		});
-		JLabel vPosicao5 = new JLabel();
-		vPosicao5.setBounds(new Rectangle(274, 440, 190, 170));
-		vPosicao5.setIcon(iconeVermelho);				
-		vPosicao5.addMouseListener(new java.awt.event.MouseAdapter() {
+	
+
+		vPosicao22.setBounds(new Rectangle(414, 380, 190, 170));
+		vPosicao22.setIcon(iconeVermelho);				
+		vPosicao22.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				click(2,2);
+				vPosicao22.setIcon(iconeVermelhoClicado);
+			}
+		});
+
+		vPosicao21.setBounds(new Rectangle(274, 440, 190, 170));
+		vPosicao21.setIcon(iconeVermelho);				
+		vPosicao21.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(2,1);
-				vPosicao5.setIcon(iconeVermelhoClicado);
+				vPosicao21.setIcon(iconeVermelhoClicado);
 			}
 		});
 		
-		JLabel vPosicao6 = new JLabel();
-		vPosicao6.setBounds(new Rectangle(134, 380, 190, 170));
-		vPosicao6.setIcon(iconeVermelho);				
-		vPosicao6.addMouseListener(new java.awt.event.MouseAdapter() {
+
+		vPosicao20.setBounds(new Rectangle(134, 380, 190, 170));
+		vPosicao20.setIcon(iconeVermelho);				
+		vPosicao20.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(2,0);
-				vPosicao6.setIcon(iconeVermelhoClicado);
+				vPosicao20.setIcon(iconeVermelhoClicado);
 			}
 		});
-		JLabel vPosicao7 = new JLabel();
-		vPosicao7.setBounds(new Rectangle(76, 242, 190, 170));
-		vPosicao7.setIcon(iconeVazio);				
-		vPosicao7.addMouseListener(new java.awt.event.MouseAdapter() {
+
+		vPosicao10.setBounds(new Rectangle(76, 242, 190, 170));
+		vPosicao10.setIcon(iconeVazio);				
+		vPosicao10.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
 				click(1,0);
 			}
 		});
 		
-		JLabel vPosicao8 = new JLabel();
-		vPosicao8.setBounds(new Rectangle(134, 102, 190, 170));
-		vPosicao8.setIcon(iconeAzul);				
-		vPosicao8.addMouseListener(new java.awt.event.MouseAdapter() {
+
+		vPosicao00.setBounds(new Rectangle(134, 102, 190, 170));
+		vPosicao00.setIcon(iconeAzul);				
+		vPosicao00.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(java.awt.event.MouseEvent e) {
-				vPosicao8.setIcon(iconeAzulClicado);
+				vPosicao00.setIcon(iconeAzulClicado);
 				click(0,0);
 			}
 		});
 		
-		frame.getContentPane().add(vPosicao0);
-		frame.getContentPane().add(vPosicao1);
-		frame.getContentPane().add(vPosicao2);
-		frame.getContentPane().add(vPosicao3);
-		frame.getContentPane().add(vPosicao4);
-		frame.getContentPane().add(vPosicao5);
-		frame.getContentPane().add(vPosicao6);
-		frame.getContentPane().add(vPosicao7);
-		frame.getContentPane().add(vPosicao8);
+		frame.getContentPane().add(vPosicao11);
+		frame.getContentPane().add(vPosicao01);
+		frame.getContentPane().add(vPosicao02);
+		frame.getContentPane().add(vPosicao12);
+		frame.getContentPane().add(vPosicao22);
+		frame.getContentPane().add(vPosicao21);
+		frame.getContentPane().add(vPosicao20);
+		frame.getContentPane().add(vPosicao10);
+		frame.getContentPane().add(vPosicao00);
 		frame.getContentPane().add(background);
 
 	}
 	
 	public void click(int linha, int coluna) {
-		System.out.println("Usuario click");
+		System.out.print("Usuario click");
 		boolean origemSelecionada = obterPosOrigemSelecionada();
+		System.out.println(" --   Linha: " + linha + " coluna: " + coluna );
 		if (origemSelecionada) {
 			String mensagem = atorJogador.lidarComClickDestino(linha, coluna);
 			if (!mensagem.equals("[Teste] OK")) {
@@ -315,7 +330,18 @@ public class InterfaceJogo {
 	public void notificar(String notificacao) {
 		JOptionPane.showMessageDialog(null, notificacao);
 	}
-	
-	
-	
+
+	public void addSemPeca(int i, int j) {
+
+		vPosicao00.setIcon(iconeVazio);	
+		System.out.println("passei por aqui");
+	}
+	public void addVermelho(int i, int j) {
+
+		vPosicao11.setIcon(iconeVermelho);				
+	}
+	public void addAzul(int i, int j) {
+
+		vPosicao20.setIcon(iconeAzul);				
+	}
 }
