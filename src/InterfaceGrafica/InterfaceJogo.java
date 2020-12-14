@@ -53,7 +53,6 @@ public class InterfaceJogo {
 	}
 
 	public void initialize() {
-		System.out.println("[initialize");
 		atorJogador = new InterfaceJogador(this);
 		
 		frame = new JFrame();
