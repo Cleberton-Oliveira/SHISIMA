@@ -9,6 +9,7 @@ import br.ufsc.inf.leobr.cliente.Proxy;
 import br.ufsc.inf.leobr.cliente.exception.ArquivoMultiplayerException;
 import br.ufsc.inf.leobr.cliente.exception.JahConectadoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
+import br.ufsc.inf.leobr.cliente.exception.NaoJogandoException;
 import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
 
 public class InterfaceNetgamesServer implements OuvidorProxy {
@@ -40,7 +41,6 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 			}
 			this.definirConectado(true);
 			return "Sucesso: conectado a Netgames Server";
-		
 	}
 
 	private void definirConectado(boolean valor) {
@@ -60,7 +60,7 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 
 	public String iniciarPartida() {
 		try {
-			proxy.iniciarPartida(new Integer(2)); // supondo 2 jogadores, o que pode ser alterado
+			proxy.iniciarPartida(new Integer(2));
 		} catch (NaoConectadoException e) {
 			e.printStackTrace();
 			return "Falha ao tentar enviar solicitacao de inicio enviada a Netgames Server";
@@ -71,49 +71,49 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
 		JOptionPane.showMessageDialog(null, "[Teste] Netgames enviou partida iniciada");
-		JOptionPane.showMessageDialog(null, "o servidor enviou solicitacao de inicio de partida e isso deve ser tratado segundo as regras do seu jogo");
 		String nomeAdversario = this.proxy.obterNomeAdversario(posicao);
 		this.atorJogador.iniciarNovaPartida(posicao, nomeAdversario);
 	}
 
 	@Override
-	public void finalizarPartidaComErro(String message) {
-		// TODO Auto-generated method stub
-		
+	public void finalizarPartidaComErro(String message) {		
 	}
 
 	@Override
 	public void receberMensagem(String msg) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void receberJogada(Jogada jogada) {
-		// TODO Auto-generated method stub
-		
+		atorJogador.tratarReceberJogada(jogada);
+	}
+	
+	public void enviarJogada(Jogada jogada) {
+		try {
+			this.proxy.enviaJogada(jogada);
+		} catch (NaoJogandoException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void tratarConexaoPerdida() {
-		// TODO Auto-generated method stub
-		
+	public void tratarConexaoPerdida() {		
 	}
 
 	@Override
-	public void tratarPartidaNaoIniciada(String message) {
-		// TODO Auto-generated method stub
-		
+	public void tratarPartidaNaoIniciada(String message) {		
 	}
 
 	public boolean informarConectado() {
-		// TODO Auto-generated method stub
 		return this.conectado;
 	}
 
 	public void encerrarPartida() {
-		// TODO Auto-generated method stub
-		
+		try {
+			this.proxy.finalizarPartida();
+		} catch (NaoConectadoException | NaoJogandoException e) {
+			e.printStackTrace();
+		}
 	}
-	
 
 }
