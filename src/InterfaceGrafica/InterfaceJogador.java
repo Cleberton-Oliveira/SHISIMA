@@ -46,14 +46,6 @@ public class InterfaceJogador {
 		if (!conectado) {
 			mensagem = "Você não está conectado";	
 		} else {
-			
-			boolean partidaEmAndamento = this.tabuleiro.obterPartidaEmAndamento();
-			
-			if (partidaEmAndamento) {
-				// T0D0
-				// encerra partida localmente
-			}
-
 			boolean atualizarInterface = this.tabuleiro.encerrarHavendoPartida();
 			
 			if (atualizarInterface) {
@@ -131,21 +123,17 @@ public class InterfaceJogador {
 				this.iJogo.notificar("Vermelho venceu!");
 			}
 			this.tabuleiro.encerrarPartida();
-			this.iJogo.assumirPosicaoInicial(); // AQUIIIII
+			this.iJogo.assumirPosicaoInicial();
 			this.ngServer.encerrarPartida();
 		}
 		this.tabuleiro.trocarTurno();
-
 	}
 	
 	public void tratarReceberJogada(Jogada jogada) {
 		Estado estado = this.tabuleiro.obterEstado();
 		Lance lance = (Lance) jogada;
 		estado.definirLance(lance);
-
 		atualizarEstado();
-		
 	}
-	
 
 }

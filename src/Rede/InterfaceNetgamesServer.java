@@ -60,7 +60,7 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 
 	public String iniciarPartida() {
 		try {
-			proxy.iniciarPartida(new Integer(2)); // supondo 2 jogadores, o que pode ser alterado
+			proxy.iniciarPartida(new Integer(2));
 		} catch (NaoConectadoException e) {
 			e.printStackTrace();
 			return "Falha ao tentar enviar solicitacao de inicio enviada a Netgames Server";
@@ -92,7 +92,6 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 		try {
 			this.proxy.enviaJogada(jogada);
 		} catch (NaoJogandoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -113,7 +112,6 @@ public class InterfaceNetgamesServer implements OuvidorProxy {
 		try {
 			this.proxy.finalizarPartida();
 		} catch (NaoConectadoException | NaoJogandoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

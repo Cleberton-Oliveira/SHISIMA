@@ -249,7 +249,7 @@ public class InterfaceJogo {
 			boolean posValida = atorJogador.validarClickDestino(linha, coluna);
 			if (posValida) {
 				inverterValorPosOrigemSelecionada();
-				atorJogador.atualizarEstado();// AQUI
+				atorJogador.atualizarEstado();
 			}
 		} else {
 			boolean posValida = atorJogador.validarClickOrigem(linha, coluna);
